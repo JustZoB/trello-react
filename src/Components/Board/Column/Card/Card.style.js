@@ -7,10 +7,11 @@ export const StyledCard = styled.div`
   height: 20px;
   background-color: white;
   border-radius: 7px;
+  box-shadow: 0 2px 0 0 rgba(34, 60, 80, 0.2);
   cursor: pointer;
 
-  &:not(:last-child) {
-    margin-bottom: 10px;
+  > p {
+    margin: 0;
   }
 
   &:hover {

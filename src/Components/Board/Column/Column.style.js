@@ -35,6 +35,10 @@ export const StyledColumn = styled.div`
     margin-bottom: 10px;
     padding: 0 5px;
 
+    & > *:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
     &::-webkit-scrollbar {
       padding-right: 10px;
       padding: 2px;
