@@ -18,7 +18,8 @@ export const StyledCardModal = styled.div`
     transform: scale(1);
   }
 
-  > div {
+  > .modal__content {
+    position: relative;
     width: 700px;
     height: 800px;
     padding: 10px;
@@ -50,10 +51,38 @@ export const StyledCardModal = styled.div`
 
     > .closeIcon {
       position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 20px;
-      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: 5px;
+      right: 5px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      border-radius: 50%;
+      background-color: transparent;
+      z-index: 102;
+      
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      &::before, &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 18px;
+        height: 1.5px;
+        background-color: black;
+      }
+
+      &::before {
+        transform: rotate(45deg);
+      }
+
+      &::after {
+        transform: rotate(-45deg);
+      }
     }
   }
 `

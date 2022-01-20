@@ -15,7 +15,7 @@ const CardModal = ({active, setActive, colName, name}) => {
         <div className='comments'>
           <h4>Comments</h4>
         </div>
-        <div className='closeIcon'></div>
+        <div className='closeIcon' onClick={() => setActive(false)}></div>
       </div>
     </StyledCardModal>
   );
