@@ -1,10 +1,32 @@
 import styled from "styled-components";
 
 export const StyledBoard = styled.div`
-  display: flex;
-  width: 100vw;
   padding: 10px;
+  background-color: gray;
+  min-width: calc(100vw - 20px);
   margin-top: 50px;
   margin-bottom: 50px;
-  background-color: gray;
+  overflow-x: hidden;
+
+  > div {
+    display: flex;
+    overflow-x: auto;
+    height: calc(100% - 20px);
+    padding-bottom: 20px;
+    overflow-y: hidden;
+
+    &::-webkit-scrollbar {
+      padding: 2px;
+      height: 15px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: darkgrey;
+      border-radius: 10px;
+    }
+  }
 `

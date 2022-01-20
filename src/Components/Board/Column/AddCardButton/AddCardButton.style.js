@@ -1,19 +1,16 @@
 import styled from "styled-components";
 
-export const StyledCard = styled.div`
+export const StyledAddCardButton = styled.div`
   display: flex;
   align-items: center;
   padding: 10px;
+  margin: 0 5px;
   height: 20px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.3);
   border-radius: 7px;
   cursor: pointer;
 
-  &:not(:last-child) {
-    margin-bottom: 10px;
-  }
-
   &:hover {
-    background-color: aliceblue;
+    background-color: rgba(255, 255, 255, 0.6);
   }
 `

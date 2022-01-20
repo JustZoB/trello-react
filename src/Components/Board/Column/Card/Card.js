@@ -2,8 +2,8 @@ import { StyledCard } from './Card.style';
 
 function Card(props) {
   return (
-    <StyledCard>
-      <p>Card</p>
+    <StyledCard onClick={event => console.log(event)}>
+      <p>{props.name}</p>
     </StyledCard>
   );
 }
