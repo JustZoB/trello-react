@@ -20,8 +20,8 @@ export const StyledCardModal = styled.div`
 
   > .modal__content {
     position: relative;
-    width: 700px;
-    height: 800px;
+    width: 600px;
+    height: 700px;
     padding: 10px;
     background-color: white;
     cursor: auto;
@@ -44,8 +44,84 @@ export const StyledCardModal = styled.div`
       padding: 10px;
 
       > h4 {
-        margin: 10px 0;
+        margin: 0 0 10px;
         font-weight: 600;
+      }
+    }
+
+    > .description {
+      .buttonEdit {
+        font-size: 14px;
+        width: calc(100% - 20px);
+        background-color: #EEEEEE;
+        display: block;
+        padding: 10px;
+        height: 40px;
+        cursor: pointer;
+        margin: 10px 0 0;
+        border-radius: 3px;
+
+        &:hover {
+          background-color: #DDDDDD;
+        }
+
+        &.hide {
+          display: none;
+        }
+      }
+      .editDescription {
+        display: none;
+
+        &.active {
+          display: block;
+        }
+      }
+
+      textarea {
+        font-size: 14px;
+        margin: 0 0 10px;
+        padding: 10px;
+        background-color: #EEEEEE;
+        width: calc(100% - 20px);
+        height: 100px;
+        overflow: hidden;
+        border: 0;
+        resize: none;
+        border-radius: 3px;
+      }
+
+      .buttons {
+        display: flex;
+      }
+    }
+
+    .comments {
+      &__block {
+        background-color: #EEEEEE;
+        padding-bottom: 10px;
+
+        textarea {
+          font-size: 14px;
+          margin: 0;
+          padding: 10px;
+          background-color: #EEEEEE;
+          width: calc(100% - 20px);
+          height: 20px;
+          overflow: hidden;
+          border: 0;
+          outline: 0;
+          resize: none;
+          border-radius: 3px;
+        }
+
+        .button {
+          width: fit-content;
+          margin-left: 10px;
+
+          &.hide {
+            display: none;
+          }
+        }
       }
     }
 
