@@ -3,6 +3,7 @@ import { useState } from 'react/cjs/react.development';
 import { StyledCardModal } from './CardModal.style';
 import { Button } from './../../../../Button.style';
 import { CloseButton } from './../../../../CloseButton.style';
+import { CloseModalButton } from './../../../../CloseModalButton.style';
 
 const CardModal = ({active, setActive, colName, name}) => {
   const [descriptionActive, setDescriptionActive] = useState(false);
@@ -33,7 +34,7 @@ const CardModal = ({active, setActive, colName, name}) => {
             <Button className={commentsActive ? "button" : "button hide"}>Save</Button>
           </div>
         </div>
-        <div className='closeIcon' onClick={() => setActive(false)}></div>
+        <CloseModalButton onClick={() => setActive(false)}></CloseModalButton>
       </div>
     </StyledCardModal>
   );
