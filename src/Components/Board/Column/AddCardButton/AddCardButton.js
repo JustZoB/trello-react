@@ -2,6 +2,7 @@ import { useState } from 'react/cjs/react.development';
 import { StyledAddCardButton } from './AddCardButton.style';
 import { Button } from './../../../Button.style'
 import { CloseButton } from './../../../CloseButton.style'
+import { Textarea } from './../../../Textarea.style'
 
 function AddCardButton(props) {
   const [cardAddingActive, setCardAddingActive] = useState(false);
@@ -15,7 +16,7 @@ function AddCardButton(props) {
         + Add card
       </p>
       <div className={cardAddingActive ? "addCard active" : "addCard"}>
-        <textarea placeholder='Name your card'></textarea>
+        <Textarea placeholder='Name your card'></Textarea>
         <div className='buttons'>
           <Button>Add card</Button>
           <CloseButton onClick={() => setCardAddingActive(false)}></CloseButton>

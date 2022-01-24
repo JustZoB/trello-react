@@ -29,16 +29,13 @@ export const StyledAddCardButton = styled.div`
       display: block;
     }
 
-    textarea {
-      font-size: 14px;
+    Textarea {
       margin: 0 5px 10px;
       padding: 10px;
-      overflow: hidden;
-      background-color: #EEEEEE;
-      border: 0;
-      resize: none;
+      background-color: white;
       width: calc(100% - 30px);
       height: 50px;
+      outline: 0;
     }
 
     .buttons {

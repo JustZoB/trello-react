@@ -14,22 +14,6 @@ export const StyledColumn = styled.div`
     margin-right: 10px;
   }
 
-  > textarea {
-    font-size: 20px;
-    margin: 0 5px 10px 2px;
-    padding: 2px 2px 2px 5px;
-    overflow: hidden;
-    background-color: transparent;
-    border: 0;
-    resize: none;
-    height: 30px;
-    font-weight: 600;
-
-    &:focus {
-      background-color: white;
-    }
-  }
-
   .cardList {
     overflow-y: auto;
     margin-bottom: 10px;

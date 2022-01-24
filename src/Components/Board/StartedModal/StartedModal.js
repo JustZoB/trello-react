@@ -1,6 +1,10 @@
 import React from 'react';
 import { useState } from 'react/cjs/react.development';
-import { StyledStartedModal } from './StartedModal.style';
+import { InputText } from './../../InputText.style';
+import { SubmitButton } from './../../Button.style';
+import { Modal, ModalContent } from './../../Modal.style';
+import { H4 } from './../../H.style';
+import { Form } from './../../Form.style';
 
 const StartedModal = () => {
   const [modalActive, setModalActive] = useState(true);
@@ -16,20 +20,20 @@ const StartedModal = () => {
   }
 
   return (
-    <StyledStartedModal className={modalActive ? "modal active" : "modal"}>
-      <div className='modal__content'>
-        <h4>Hello and welcome to trello clone, enter you name:</h4>
-        <form onSubmit={(enterName)}>
-          <input
+    <Modal className={modalActive ? "modal active" : "modal"}>
+      <ModalContent small className='modal__content'>
+        <H4>Hello and welcome to trello clone, enter you name:</H4>
+        <Form onSubmit={(enterName)}>
+          <InputText
             type='text'
             placeholder='Enter your name...' 
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <input type='submit' value='Enter' />
-        </form>
-      </div>
-    </StyledStartedModal>
+          <SubmitButton type='submit' value='Enter' />
+        </Form>
+      </ModalContent>
+    </Modal>
   );
 }
 
