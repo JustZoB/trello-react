@@ -3,22 +3,7 @@ import { AppContainer } from './Components/AppContainer.style'
 import { Board } from './Components/Board/Board'
 
 const App: React.FC = () => {
-  // interface ListInterface {
-  //   list: [
-  //     {
-  //       id: number,
-  //       name: string,
-  //       list: [
-  //         {
-  //           id: number,
-  //           name: string
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // }
-
-  const list: Array<{ id: number, name: string, list: Array<{ id: number, name: string}> }> = [
+  const list: { id: number, name: string, list: { id: number, name: string }[] }[] = [
     {
       id: 1,
       name: "ToDo",

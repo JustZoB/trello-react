@@ -7,12 +7,10 @@ import { TextareaHead } from '../../Textarea.style';
 interface ColumnProps {
   key: number,
   name: string,
-  list: [
-    {
-      id: number,
-      name: string
-    }
-  ]
+  list: {
+    id: number,
+    name: string
+  }[]
 }
 
 export const Column: React.FC<ColumnProps> = (props) => {
