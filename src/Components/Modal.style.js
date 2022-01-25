@@ -12,11 +12,7 @@ export const Modal = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: scale(0);
-
-  &.active {
-    transform: scale(1);
-  }
+  transform: ${(props) => (props.$isActive ? "scale(1)" : "scale(0)")};
 `
 
 export const ModalContent = styled.div`

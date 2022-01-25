@@ -1,7 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
-import { StyledCardModal } from './CardModal.style';
-import { Button } from '../../../../Button.style';
+import { Header } from './Header.style';
+import { Description } from './Description.style'
+import { AddDescriptionButton } from './AddDescriptionButton.style';
+import { AddDescriptionWrapper } from './AddDescriptionWrapper.style';
+import { Comments } from './Comments.style'
+import { AddCommentWrapper } from './AddCommentWrapper.style';
+import { Button, ButtonsWrapper } from '../../../../Button.style';
 import { CloseButton } from '../../../../CloseButton.style';
 import { CloseModalButton } from '../../../../CloseModalButton.style';
 import { Textarea } from '../../../../Textarea.style';
@@ -17,36 +22,43 @@ interface CardModalProps {
 
 export const CardModal: React.FC<CardModalProps> = (props) => {
   const [descriptionActive, setDescriptionActive] = useState<boolean>(false);
-  const [commentsActive, setCommentsActive] = useState<boolean>(false);
 
   return (
-    <Modal className={props.active ? "modal active" : "modal"} onClick={() => props.setActive(false)}>
-      <ModalContent className='modal__content' onClick={(e: React.ChangeEvent) => e.stopPropagation()}>
-        <StyledCardModal>
-          <div className='header'>
+    <Modal $isActive={props.active} onClick={() => props.setActive(false)}>
+      <ModalContent onClick={(e: React.ChangeEvent) => e.stopPropagation()}>
+          <Header>
             <H3>{props.name}</H3>
             <p>in column {props.colName}</p>
-          </div>
-          <div className='description'>
+          </Header>
+
+          <Description>
             <H4>Description</H4>
-            <p className={!descriptionActive ? "buttonEdit" : "buttonEdit hide"} onClick={() => setDescriptionActive(true)}>Add description...</p>
-            <div className={descriptionActive ? "editDescription active" : "editDescription"}>
+
+            <AddDescriptionButton
+              $isActive={!descriptionActive}
+              onClick={() => setDescriptionActive(true)}
+            >
+              Add description...
+            </AddDescriptionButton>
+
+            <AddDescriptionWrapper $isActive={descriptionActive}>
               <Textarea placeholder='Add description...'></Textarea>
-              <div className='buttons'>
+              <ButtonsWrapper>
                 <Button>Save</Button>
                 <CloseButton onClick={() => setDescriptionActive(false)}></CloseButton>
-              </div>
-            </div>
-          </div>
-          <div className='comments'>
+              </ButtonsWrapper>
+            </AddDescriptionWrapper>
+          </Description>
+
+          <Comments>
             <H4>Comments</H4>
-            <div onClick={() => setCommentsActive(true)} className="comments__block">
+            <AddCommentWrapper>
               <Textarea placeholder='Write comment...'></Textarea>
-              <Button className={commentsActive ? "button" : "button hide"}>Save</Button>
-            </div>
-          </div>
+              <Button>Save</Button>
+            </AddCommentWrapper>
+          </Comments>
+
           <CloseModalButton onClick={() => props.setActive(false)}></CloseModalButton>
-        </StyledCardModal>
       </ModalContent>
     </Modal>
   );

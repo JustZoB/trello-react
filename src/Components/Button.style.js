@@ -43,3 +43,7 @@ export const SubmitButton = styled.input`
     background-color: #055a8c;
   }
 `
+
+export const ButtonsWrapper = styled.div`
+  display: flex;
+`

@@ -20,8 +20,8 @@ const StartedModal = () => {
   }
 
   return (
-    <Modal className={modalActive ? "modal active" : "modal"}>
-      <ModalContent className='modal__content'>
+    <Modal $isActive={modalActive}>
+      <ModalContent small>
         <H4>Hello and welcome to trello clone, enter you name:</H4>
         <Form onSubmit={(enterName)}>
           <InputText

@@ -14,10 +14,13 @@ export const StyledColumn = styled.div`
     margin-right: 10px;
   }
 
+  & > * {
+    padding: 0 5px;
+  }
+
   .cardList {
     overflow-y: auto;
     margin-bottom: 10px;
-    padding: 0 5px;
 
     & > *:not(:last-child) {
       margin-bottom: 10px;
