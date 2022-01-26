@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
+import { StyledCard } from '../../StyledCard.style';
 import { Button, ButtonsWrapper } from '../../Button.style';
 import { CloseButton } from '../../CloseButton.style';
 import { Textarea } from '../../Textarea.style';
@@ -9,12 +10,13 @@ export const AddCardButton: React.FC = () => {
 
   return (
     <div>
-      <AddCardButtonActive
+      <StyledCard
+        variant='secondary'
         $isActive= {!cardAddingActive}
         onClick={() => setCardAddingActive(true)}
       >
         + Add card
-      </AddCardButtonActive>
+      </StyledCard>
       <AddingCardWrapper $isActive= {cardAddingActive}>
         <Textarea placeholder='Name your card' />
         <ButtonsWrapper>
@@ -36,22 +38,6 @@ const AddingCardWrapper = styled.div<AddCardProps>`
     width: calc(100% - 20px);
     height: 50px;
     outline: 0;
-  }
-`
-
-const AddCardButtonActive = styled.p<AddCardProps>`
-  display: ${(props) => (props.$isActive ? "flex" : "none")};
-  align-items: center;
-  padding: 10px;
-  margin: 0;
-  height: 14px;
-  font-size: 14px;
-  background-color: #DDDDDD;
-  border-radius: 3px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #EEEEEE;
   }
 `
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { InputText } from '../InputText.style';
-import { SubmitButton } from '../Button.style';
+import { InputButton } from '../Button.style';
 import { Modal, ModalContent } from '../Modal.style';
 import { Form } from '../Form.style';
 
@@ -29,7 +29,7 @@ const GreetingsModal = () => {
             value={name}
             onChange={(e: React.FormEvent<HTMLInputElement>) => setName(e.currentTarget.value)}
           />
-          <SubmitButton type='submit' value='Enter' />
+          <InputButton type='submit' value='Enter' />
         </Form>
       </ModalContent>
     </Modal>

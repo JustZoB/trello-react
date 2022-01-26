@@ -22,7 +22,7 @@ export const Button = styled.button`
   }
 `
 
-export const SubmitButton = styled.input`
+export const InputButton = styled.input`
   border-radius: 3px;
   background-color: #0079bf;
   color: white;
