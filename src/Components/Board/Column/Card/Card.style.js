@@ -10,11 +10,6 @@ export const StyledCard = styled.div`
   box-shadow: 0 2px 0 0 rgba(34, 60, 80, 0.2);
   cursor: pointer;
 
-  > p {
-    font-size: 14px;
-    margin: 0;
-  }
-
   &:hover {
     background-color: aliceblue;
   }

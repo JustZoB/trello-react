@@ -6,11 +6,11 @@ import { Modal, ModalContent } from '../../Modal.style';
 import { H4 } from '../../H.style';
 import { Form } from '../../Form.style';
 
-const StartedModal = () => {
+const GreetingsModal = () => {
   const [modalActive, setModalActive] = useState<boolean>(true);
   const [name, setName] = useState<string>('');
 
-  const enterName = (e: any) => {
+  const enterName = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (name !== '') {
@@ -28,7 +28,7 @@ const StartedModal = () => {
             type='text'
             placeholder='Enter your name...' 
             value={name}
-            onChange={(e: any) => setName(e.target.value)}
+            onChange={(e: React.FormEvent<HTMLInputElement>) => setName(e.currentTarget.value)}
           />
           <SubmitButton type='submit' value='Enter' />
         </Form>
@@ -37,4 +37,4 @@ const StartedModal = () => {
   );
 }
 
-export default StartedModal;
+export default GreetingsModal;

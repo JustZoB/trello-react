@@ -9,7 +9,7 @@ export const AddCardButton: React.FC = () => {
   const [cardAddingActive, setCardAddingActive] = useState<boolean>(false);
 
   return (
-    <div onClick={(event: any) => console.log(event)}>
+    <div>
       <AddCardButtonActive
         $isActive= {!cardAddingActive}
         onClick={() => setCardAddingActive(true)}
@@ -17,7 +17,7 @@ export const AddCardButton: React.FC = () => {
         + Add card
       </AddCardButtonActive>
       <AddingCardWrapper $isActive= {cardAddingActive}>
-        <Textarea placeholder='Name your card'></Textarea>
+        <Textarea placeholder='Name your card' />
         <ButtonsWrapper>
           <Button>Add card</Button>
           <CloseButton onClick={() => setCardAddingActive(false)}></CloseButton>

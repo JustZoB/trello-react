@@ -1,6 +1,7 @@
 import { StyledBoard } from './Board.style';
 import { Column } from './Column/Column'
-import StartedModal from './StartedModal/StartedModal'
+import { ColumnList } from './ColumnList.style'
+import GreetingsModal from './GreetingsModal/GreetingsModal'
 
 interface BoardProps {
   list: {
@@ -14,19 +15,19 @@ interface BoardProps {
   }[]
 }
 
-export const Board: React.FC<BoardProps> = props => {
+export const Board: React.FC<BoardProps> = ({list}) => {
   return (
     <StyledBoard>
-      <div>
-        {props.list.map(col => (
+      <ColumnList>
+        {list.map(({id, name, list}) => (
           <Column
-            key={col.id}
-            name={col.name}
-            list={col.list}
+            key={id}
+            colName={name}
+            list={list}
           />
         ))}
-      </div>
-      <StartedModal />
+      </ColumnList>
+      <GreetingsModal />
     </StyledBoard>
   );
 }

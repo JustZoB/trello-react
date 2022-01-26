@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import { StyledColumn } from './Column.style';
+import { CardList } from './CardList.style';
 import { Card } from './Card/Card'
 import { AddCardButton } from './AddCardButton/AddCardButton';
 import { TextareaHead } from '../../Textarea.style';
 
 interface ColumnProps {
   key: number,
-  name: string,
+  colName: string,
   list: {
     id: number,
     name: string
   }[]
 }
 
-export const Column: React.FC<ColumnProps> = (props) => {
-  const [columnName, setColumnName] = useState<string>(props.name);
+export const Column: React.FC<ColumnProps> = ({key, colName, list}) => {
+  const [columnName, setColumnName] = useState<string>(colName);
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setColumnName(event.target.value)
@@ -27,18 +28,18 @@ export const Column: React.FC<ColumnProps> = (props) => {
         value={columnName}
         onChange={changeHandler}
       >
-        {props.name}
+        {colName}
       </TextareaHead>
-      <div className='cardList'>
-        {props.list.map(col => (
+      <CardList>
+        {list.map(({id, name}) => (
           <Card
-            key={col.id}
-            name={col.name}
-            colName={props.name}
+            key={id}
+            name={name}
+            colName={colName}
           />
         ))}
-      </div>
-      <AddCardButton></AddCardButton>
+      </CardList>
+      <AddCardButton />
     </StyledColumn>
   );
 }

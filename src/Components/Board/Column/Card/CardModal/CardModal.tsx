@@ -15,7 +15,7 @@ import { Modal, ModalContent } from '../../../../Modal.style';
 
 interface CardModalProps {
   active: boolean,
-  setActive: any,
+  setActive: React.Dispatch<React.SetStateAction<boolean>>,
   colName: string,
   name: string
 }
@@ -42,7 +42,7 @@ export const CardModal: React.FC<CardModalProps> = (props) => {
             </AddDescriptionButton>
 
             <AddDescriptionWrapper $isActive={descriptionActive}>
-              <Textarea placeholder='Add description...'></Textarea>
+              <Textarea placeholder='Add description...' />
               <ButtonsWrapper>
                 <Button>Save</Button>
                 <CloseButton onClick={() => setDescriptionActive(false)}></CloseButton>
@@ -53,7 +53,7 @@ export const CardModal: React.FC<CardModalProps> = (props) => {
           <Comments>
             <H4>Comments</H4>
             <AddCommentWrapper>
-              <Textarea placeholder='Write comment...'></Textarea>
+              <Textarea placeholder='Write comment...' />
               <Button>Save</Button>
             </AddCommentWrapper>
           </Comments>
