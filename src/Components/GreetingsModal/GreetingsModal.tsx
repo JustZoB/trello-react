@@ -1,10 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import { InputText } from '../../InputText.style';
-import { SubmitButton } from '../../Button.style';
-import { Modal, ModalContent } from '../../Modal.style';
-import { H4 } from '../../H.style';
-import { Form } from '../../Form.style';
+import { InputText } from '../InputText.style';
+import { SubmitButton } from '../Button.style';
+import { Modal, ModalContent } from '../Modal.style';
+import { Form } from '../Form.style';
 
 const GreetingsModal = () => {
   const [modalActive, setModalActive] = useState<boolean>(true);
@@ -22,7 +21,7 @@ const GreetingsModal = () => {
   return (
     <Modal $isActive={modalActive}>
       <ModalContent small>
-        <H4>Hello and welcome to trello clone, enter you name:</H4>
+        <h4>Hello and welcome to trello clone, enter you name:</h4>
         <Form onSubmit={(enterName)}>
           <InputText
             type='text'

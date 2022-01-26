@@ -1,19 +1,6 @@
-import { StyledBoard } from './Board.style';
-import { Column } from './Column/Column'
-import { ColumnList } from './ColumnList.style'
-import GreetingsModal from './GreetingsModal/GreetingsModal'
-
-interface BoardProps {
-  list: {
-    id: number,
-    name: string,
-    list: 
-      {
-        id: number,
-        name: string
-      }[]
-  }[]
-}
+import styled from "styled-components";
+import { Column } from '../Column/Column';
+import GreetingsModal from '../GreetingsModal/GreetingsModal';
 
 export const Board: React.FC<BoardProps> = ({list}) => {
   return (
@@ -30,4 +17,47 @@ export const Board: React.FC<BoardProps> = ({list}) => {
       <GreetingsModal />
     </StyledBoard>
   );
+}
+
+const StyledBoard = styled.div`
+  padding: 10px;
+  background-color: gray;
+  min-width: calc(100vw - 20px);
+  margin-top: 50px;
+  margin-bottom: 50px;
+  overflow-x: hidden;
+`
+
+const ColumnList = styled.div`
+  display: flex;
+  overflow-x: auto;
+  height: calc(100% - 20px);
+  padding-bottom: 20px;
+  overflow-y: hidden;
+
+  &::-webkit-scrollbar {
+    padding: 2px;
+    height: 15px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    border-radius: 10px;
+  }
+`
+
+interface BoardProps {
+  list: {
+    id: number,
+    name: string,
+    list:
+      {
+        id: number,
+        name: string
+      }[]
+  }[]
 }

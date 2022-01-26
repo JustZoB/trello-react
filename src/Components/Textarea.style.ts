@@ -13,7 +13,7 @@ export const Textarea = styled.textarea`
   height: 20px;
 `
 
-export const TextareaHead = styled(Textarea)`
+export const TextareaHead = styled(Textarea)<TextareaHeadProps>`
   font-size: 20px;
   margin: 0 5px 10px 2px;
   padding: 2px 2px 2px 5px;
@@ -25,3 +25,6 @@ export const TextareaHead = styled(Textarea)`
     background-color: white;
   }
 `
+interface TextareaHeadProps {
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}

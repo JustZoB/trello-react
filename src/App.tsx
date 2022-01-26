@@ -1,6 +1,6 @@
 import React from 'react'
-import { AppContainer } from './Components/AppContainer.style'
-import { Board } from './Components/Board/Board'
+import styled from "styled-components";
+import { Board } from './Components/Board/Board';
 
 const App: React.FC = () => {
   interface List {
@@ -66,5 +66,12 @@ const App: React.FC = () => {
     </AppContainer>
   );
 }
+
+const AppContainer = styled.div`
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: #282c34;
+`
 
 export default App

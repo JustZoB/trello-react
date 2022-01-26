@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Modal = styled.div`
+export const Modal = styled.div<ModalProps>`
   position: fixed;
   top: 0;
   left: 0;
@@ -15,7 +15,7 @@ export const Modal = styled.div`
   transform: ${(props) => (props.$isActive ? "scale(1)" : "scale(0)")};
 `
 
-export const ModalContent = styled.div`
+export const ModalContent = styled.div<ModalContentProps>`
   position: relative;
   width: ${props => props.small ? "400px" : "600px"};
   height: ${props => props.small ? "70px" : "700px"};
@@ -24,3 +24,12 @@ export const ModalContent = styled.div`
   cursor: auto;
   border-radius: 2px;
 `
+
+interface ModalProps {
+  $isActive: boolean;
+}
+
+interface ModalContentProps {
+  small?: any
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+}
