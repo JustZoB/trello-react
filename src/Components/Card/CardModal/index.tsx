@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from "styled-components";
 import { useState } from 'react';
-import { Button, ButtonsWrapper } from '../../Button.style';
-import { CloseButton } from '../../CloseButton.style';
-import { CloseModalButton } from '../../CloseModalButton.style';
-import { Textarea } from '../../Textarea.style';
-import { Modal, ModalContent } from '../../Modal.style';
+import { Button, ButtonsWrapper } from '../../Button';
+import { CloseButton } from '../../CloseButton';
+import { CloseModalButton } from '../../CloseModalButton';
+import { Textarea } from '../../Textarea';
+import { Modal, ModalContent } from '../../Modal';
 
 export const CardModal: React.FC<CardModalProps> = (props) => {
   const [descriptionActive, setDescriptionActive] = useState<boolean>(false);

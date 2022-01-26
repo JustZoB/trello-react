@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { StyledCard } from '../StyledCard.style';
-import { CardModal } from './CardModal/CardModal';
+import { StyledCard } from '../StyledCard';
+import { CardModal } from './CardModal';
 
 export const Card: React.FC<CardProps> = (props) => {
   const [modalActive, setModalActive] = useState<boolean>(false);

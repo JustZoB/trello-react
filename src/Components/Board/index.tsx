@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Column } from '../Column/Column';
-import GreetingsModal from '../GreetingsModal/GreetingsModal';
+import { Column } from '../Column';
+import GreetingsModal from '../GreetingsModal';
 
 export const Board: React.FC<BoardProps> = ({list}) => {
   return (

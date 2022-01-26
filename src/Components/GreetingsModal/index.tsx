@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import { InputText } from '../InputText.style';
-import { Button } from '../Button.style';
-import { Modal, ModalContent } from '../Modal.style';
-import { Form } from '../Form.style';
+import { InputText } from '../InputText';
+import { Button } from '../Button';
+import { Modal, ModalContent } from '../Modal';
+import { Form } from '../Form/Form.style';
 
 const GreetingsModal = () => {
   const [modalActive, setModalActive] = useState<boolean>(true);

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import { StyledCard } from '../../StyledCard.style';
-import { Button, ButtonsWrapper } from '../../Button.style';
-import { CloseButton } from '../../CloseButton.style';
-import { Textarea } from '../../Textarea.style';
+import { StyledCard } from '../../StyledCard';
+import { Button, ButtonsWrapper } from '../../Button';
+import { CloseButton } from '../../CloseButton';
+import { Textarea } from '../../Textarea';
 
 export const AddCardButton: React.FC = () => {
   const [cardAddingActive, setCardAddingActive] = useState<boolean>(false);

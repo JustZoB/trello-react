@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import styled from "styled-components";
-import { Card } from '../Card/Card';
-import { AddCardButton } from './AddCardButton/AddCardButton';
-import { TextareaHead } from '../Textarea.style';
+import { Card } from '../Card';
+import { AddCardButton } from './AddCardButton';
+import { TextareaHead } from '../Textarea';
 
 interface ColumnProps {
   key: number,

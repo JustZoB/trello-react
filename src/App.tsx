@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from "styled-components";
-import { Board } from './Components/Board/Board';
+import { Board } from './Components/Board';
 
 const App: React.FC = () => {
   interface List {
