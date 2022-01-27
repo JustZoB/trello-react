@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
 import { InputText } from '../InputText';
-import { Button } from '../Button';
+import { Button } from '../Button/Button';
 import { Modal, ModalContent } from '../Modal';
-import { Form } from '../Form/Form.style';
+import { Form } from '../Form/Form';
 
-const GreetingsModal = () => {
+export const GreetingsModal: React.FC = () => {
   const [modalActive, setModalActive] = useState<boolean>(true);
   const [name, setName] = useState<string>('');
 
@@ -35,5 +35,3 @@ const GreetingsModal = () => {
     </Modal>
   );
 }
-
-export default GreetingsModal;

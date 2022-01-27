@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 import { StyledCard } from '../../StyledCard';
-import { Button, ButtonsWrapper } from '../../Button';
+import { Button, ButtonsWrapper } from '../../Button/Button';
 import { CloseButton } from '../../CloseButton';
 import { Textarea } from '../../Textarea';
 

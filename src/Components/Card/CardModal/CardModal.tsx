@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from "styled-components";
 import { useState } from 'react';
-import { Button, ButtonsWrapper } from '../../Button';
+import { Button, ButtonsWrapper } from '../../Button/Button';
 import { CloseButton } from '../../CloseButton';
-import { CloseModalButton } from '../../CloseModalButton';
+import { CloseModalButton } from '../../CloseModalButton/CloseModalButton';
 import { Textarea } from '../../Textarea';
 import { Modal, ModalContent } from '../../Modal';
 
