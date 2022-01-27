@@ -2,19 +2,19 @@ import { useState } from 'react';
 import { StyledCard } from '../StyledCard';
 import { CardModal } from './CardModal';
 
-export const Card: React.FC<CardProps> = (props) => {
+export const Card: React.FC<CardProps> = ({colName, name}) => {
   const [modalActive, setModalActive] = useState<boolean>(false);
 
   return (
     <div>
       <StyledCard onClick={() => setModalActive(true)}>
-        <p>{props.name}</p>
+        <p>{name}</p>
       </StyledCard>
       <CardModal
         active={modalActive}
         setActive={setModalActive}
-        colName={props.colName}
-        name={props.name}
+        colName={colName}
+        name={name}
       />
     </div>
   );

@@ -1,6 +1,27 @@
+import React from "react";
 import styled from "styled-components";
 
-export const Textarea = styled.textarea`
+export const Textarea: React.FC<Props> = ({placeholder, value, onChange}) => {
+  return (
+    <StyledTextarea
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+    />
+  );
+}
+
+export const TextareaHead: React.FC<Props> = ({placeholder, value, onChange}) => {
+  return (
+    <StyledTextareaHead
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+    />
+  );
+}
+
+const StyledTextarea = styled.textarea`
   overflow: hidden;
   border: 0;
   resize: none;
@@ -13,7 +34,7 @@ export const Textarea = styled.textarea`
   height: 20px;
 `
 
-export const TextareaHead = styled(Textarea)<TextareaHeadProps>`
+const StyledTextareaHead = styled(StyledTextarea)<Props>`
   font-size: 20px;
   margin: 0 5px 10px 2px;
   padding: 2px 2px 2px 5px;
@@ -25,6 +46,9 @@ export const TextareaHead = styled(Textarea)<TextareaHeadProps>`
     background-color: white;
   }
 `
-interface TextareaHeadProps {
+
+interface Props {
+  placeholder?: string;
+  value?: string;
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }

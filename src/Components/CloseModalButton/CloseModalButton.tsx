@@ -1,6 +1,13 @@
+import React from "react";
 import styled from "styled-components";
 
-export const CloseModalButton = styled.div`
+export const CloseModalButton: React.FC<Props> = ({onClick}) => {
+  return (
+    <StyledCloseModalButton onClick={onClick} />
+  );
+}
+
+const StyledCloseModalButton = styled.div`
   position: absolute;
   display: flex;
   align-items: center;
@@ -35,3 +42,7 @@ export const CloseModalButton = styled.div`
     transform: rotate(-45deg);
   }
 `
+
+interface Props {
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
+}

@@ -16,16 +16,15 @@ interface ColumnProps {
 export const Column: React.FC<ColumnProps> = ({colName, list}) => {
   const [columnName, setColumnName] = useState<string>(colName);
 
-  const changeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setColumnName(e.target.value)
   }
 
   return (
     <StyledColumn>
       <TextareaHead
-        name="name"
         value={columnName}
-        onChange={changeHandler}
+        onChange={handleChange}
       >
         {colName}
       </TextareaHead>

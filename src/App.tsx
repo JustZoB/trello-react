@@ -3,15 +3,6 @@ import styled from "styled-components";
 import { Board } from './Components/Board';
 
 const App: React.FC = () => {
-  interface List {
-    id: number,
-    name: string,
-    list: {
-      id: number,
-      name: string 
-    }[] 
-  }
-
   const list: List[] = [
     {
       id: 1,
@@ -60,9 +51,7 @@ const App: React.FC = () => {
 
   return (
     <AppContainer>
-      <Board list={list}>
-        
-      </Board>
+      <Board list={list} />
     </AppContainer>
   );
 }
@@ -73,5 +62,14 @@ const AppContainer = styled.div`
   height: 100vh;
   background-color: #282c34;
 `
+
+export interface List {
+  id: number,
+  name: string,
+  list: {
+    id: number,
+    name: string
+  }[]
+}
 
 export default App

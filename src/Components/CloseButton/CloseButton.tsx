@@ -1,6 +1,13 @@
+import React from "react";
 import styled from "styled-components";
 
-export const CloseButton = styled.div`
+export const CloseButton: React.FC<Props> = ({onClick}) => {
+  return (
+    <StyledCloseButton onClick={onClick} />
+  );
+}
+
+const StyledCloseButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,3 +39,7 @@ export const CloseButton = styled.div`
     }
   }
 `
+
+interface Props {
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
+}
