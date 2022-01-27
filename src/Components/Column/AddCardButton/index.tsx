@@ -20,7 +20,7 @@ export const AddCardButton: React.FC = () => {
       <AddingCardWrapper $isActive= {cardAddingActive}>
         <Textarea placeholder='Name your card' />
         <ButtonsWrapper>
-          <Button>Add card</Button>
+          <Button label='Add card' />
           <CloseButton onClick={() => setCardAddingActive(false)}></CloseButton>
         </ButtonsWrapper>
       </AddingCardWrapper>

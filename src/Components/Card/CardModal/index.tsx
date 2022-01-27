@@ -31,7 +31,7 @@ export const CardModal: React.FC<CardModalProps> = (props) => {
             <AddDescriptionWrapper $isActive={descriptionActive}>
               <Textarea placeholder='Add description...' />
               <ButtonsWrapper>
-                <Button>Save</Button>
+                <Button label='Save' />
                 <CloseButton onClick={() => setDescriptionActive(false)}></CloseButton>
               </ButtonsWrapper>
             </AddDescriptionWrapper>
@@ -41,7 +41,7 @@ export const CardModal: React.FC<CardModalProps> = (props) => {
             <h4>Comments</h4>
             <AddCommentWrapper>
               <Textarea placeholder='Write comment...' />
-              <Button>Save</Button>
+              <Button label='Save' />
             </AddCommentWrapper>
           </Comments>
 

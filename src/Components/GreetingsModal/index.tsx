@@ -29,7 +29,7 @@ const GreetingsModal = () => {
             value={name}
             onChange={(e: React.FormEvent<HTMLInputElement>) => setName(e.currentTarget.value)}
           />
-          <Button type='submit'>Enter</Button>
+          <Button type='submit' label='Enter' />
         </Form>
       </ModalContent>
     </Modal>

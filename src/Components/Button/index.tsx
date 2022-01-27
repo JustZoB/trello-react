@@ -1,6 +1,13 @@
+import React from "react";
 import styled from "styled-components";
 
-export const Button = styled.button`
+export const Button: React.FC<Props> = ({type, label}) => {
+  return (
+    <StyledButton type={type}>{label}</StyledButton>
+  );
+}
+
+const StyledButton = styled.button`
   border-radius: 3px;
   background-color: #0079bf;
   color: white;
@@ -25,3 +32,8 @@ export const Button = styled.button`
 export const ButtonsWrapper = styled.div`
   display: flex;
 `
+
+interface Props {
+  label: string;
+  type?: "button" | "submit" | "reset" | undefined;
+}
