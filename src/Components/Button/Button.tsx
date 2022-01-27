@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 export const Button: React.FC<Props> = ({type, label}) => {
   return (
@@ -35,5 +35,5 @@ export const ButtonsWrapper = styled.div`
 
 interface Props {
   label: string;
-  type?: "button" | "submit" | "reset" | undefined;
+  type?: 'button' | 'submit' | 'reset' | undefined;
 }

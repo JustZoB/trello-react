@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 export const Textarea: React.FC<Props> = ({placeholder, value, onChange}) => {
   return (
@@ -34,7 +34,7 @@ const StyledTextarea = styled.textarea`
   height: 20px;
 `
 
-const StyledTextareaHead = styled(StyledTextarea)<Props>`
+const StyledTextareaHead = styled(StyledTextarea)`
   font-size: 20px;
   margin: 0 5px 10px 2px;
   padding: 2px 2px 2px 5px;

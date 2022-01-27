@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 export const CloseButton: React.FC<Props> = ({onClick}) => {
   return (
@@ -17,7 +17,7 @@ const StyledCloseButton = styled.div`
   background-color: transparent;
 
   &::before, &::after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     width: 18px;

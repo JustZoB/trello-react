@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { List } from "../../App";
+import styled from 'styled-components';
+import { List } from '../../App';
 import { Column } from '../Column';
 import { GreetingsModal } from '../GreetingsModal';
 

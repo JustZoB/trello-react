@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from "styled-components";
+import styled from 'styled-components';
 import { StyledCard } from '../../StyledCard';
 import { Button, ButtonsWrapper } from '../../Button/Button';
 import { CloseButton } from '../../CloseButton';
@@ -29,7 +29,7 @@ export const AddCardButton: React.FC = () => {
 }
 
 const AddingCardWrapper = styled.div<AddCardProps>`
-  display: ${(props) => (props.$isActive ? "block" : "none")};
+  display: ${(props) => (props.$isActive ? 'block' : 'none')};
 
   Textarea {
     margin: 0 0 10px;

@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 export const CloseModalButton: React.FC<Props> = ({onClick}) => {
   return (
@@ -26,7 +26,7 @@ const StyledCloseModalButton = styled.div`
   }
 
   &::before, &::after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     width: 18px;

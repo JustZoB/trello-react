@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { TextInput } from '../TextInput';
 import { Button } from '../Button/Button';
-import { Modal, ModalContent } from '../Modal';
+import { Modal } from '../Modal';
 import { Form } from '../Form/Form';
 
 export const GreetingsModal: React.FC = () => {
@@ -19,19 +19,17 @@ export const GreetingsModal: React.FC = () => {
   }
 
   return (
-    <Modal $isActive={modalActive}>
-      <ModalContent small>
-        <h4>Hello and welcome to trello clone, enter you name:</h4>
-        <Form onSubmit={(handleSubmit)}>
-          <TextInput
-            type='text'
-            placeholder='Enter your name...' 
-            value={name}
-            onChange={(e: React.FormEvent<HTMLInputElement>) => setName(e.currentTarget.value)}
-          />
-          <Button type='submit' label='Enter' />
-        </Form>
-      </ModalContent>
+    <Modal $isActive={modalActive} size='small'>
+      <h4>Hello and welcome to trello clone, enter you name:</h4>
+      <Form onSubmit={(handleSubmit)}>
+        <TextInput
+          type='text'
+          placeholder='Enter your name...'
+          value={name}
+          onChange={(e: React.FormEvent<HTMLInputElement>) => setName(e.currentTarget.value)}
+        />
+        <Button type='submit' label='Enter' />
+      </Form>
     </Modal>
   );
 }

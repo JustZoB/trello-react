@@ -1,17 +1,8 @@
 import { useState } from 'react';
-import styled from "styled-components";
+import styled from 'styled-components';
 import { Card } from '../Card';
 import { AddCardButton } from './AddCardButton';
 import { TextareaHead } from '../Textarea';
-
-interface ColumnProps {
-  key: number,
-  colName: string,
-  list: {
-    id: number,
-    name: string
-  }[]
-}
 
 export const Column: React.FC<ColumnProps> = ({colName, list}) => {
   const [columnName, setColumnName] = useState<string>(colName);
@@ -84,3 +75,12 @@ const CardList = styled.div`
     border-radius: 10px;
   }
 `
+
+interface ColumnProps {
+  key: number,
+  colName: string,
+  list: {
+    id: number,
+    name: string
+  }[]
+}
