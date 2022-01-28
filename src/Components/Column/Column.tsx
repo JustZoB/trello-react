@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import { Card } from '../Card';
 import { AddCardButton } from './AddCardButton';
 import { TextareaHead } from '../Textarea';
+import { ICard, IList } from '../../App';
 
-export const Column: React.FC<ColumnProps> = ({colName, list}) => {
-  const [columnName, setColumnName] = useState<string>(colName);
-  const [columnList, setColumnList] = useState<{id: number, name: string}[]>(list);
+export const Column: React.FC<IList> = ({name, list}) => {
+  const [columnName, setColumnName] = useState<string>(name);
+  const [columnList, setColumnList] = useState<ICard[]>(list);
+  const colName: string = name;
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setColumnName(e.target.value)
@@ -27,13 +29,15 @@ export const Column: React.FC<ColumnProps> = ({colName, list}) => {
         value={columnName}
         onChange={handleChange}
       >
-        {colName}
+        {name}
       </TextareaHead>
       <CardList>
-        {columnList.map(({id, name}) => (
+        {columnList.map(({id, name, description, comments}) => (
           <Card
             key={id}
             name={name}
+            description={description}
+            comments={comments}
             colName={colName}
           />
         ))}
@@ -86,12 +90,3 @@ const CardList = styled.div`
     border-radius: 10px;
   }
 `
-
-interface ColumnProps {
-  key: number,
-  colName: string,
-  list: {
-    id: number,
-    name: string
-  }[]
-}

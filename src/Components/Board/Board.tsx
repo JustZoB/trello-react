@@ -9,8 +9,8 @@ export const Board: React.FC<BoardProps> = ({list}) => {
       <ColumnList>
         {list.map(({id, name, list}) => (
           <Column
-            key={id}
-            colName={name}
+            id={id}
+            name={name}
             list={list}
           />
         ))}
