@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import styled from 'styled-components';
 
 export const Textarea: React.FC<Props> = ({placeholder, value, onChange}) => {
@@ -48,6 +48,7 @@ const StyledTextareaHead = styled(StyledTextarea)`
 `
 
 interface Props {
+  ref?: RefObject<HTMLTextAreaElement>;
   placeholder?: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;

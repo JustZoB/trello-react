@@ -6,35 +6,67 @@ import { CloseButton } from '../../CloseButton';
 import { CloseModalButton } from '../../CloseModalButton/CloseModalButton';
 import { Textarea } from '../../Textarea';
 import { Modal } from '../../Modal';
+import { AddDescriptionButton } from './AddDescriptionButton';
+import { DescriptionContent } from './DescriptionContent';
 
-export const CardModal: React.FC<CardModalProps> = (props) => {
+export const CardModal: React.FC<CardModalProps> = ({active, setActive, colName, name, description}) => {
   const [descriptionActive, setDescriptionActive] = useState<boolean>(false);
+  const [descriptionText, setDescriptionText] = useState<string>(description !== undefined ? description : '');
+  const [oldDescription, setOldDescription] = useState<string>(descriptionText);
+
+  const handleClickCloseModal = (e: React.MouseEvent<HTMLDivElement>) => {
+    handleClickDontSaveDescription(e)
+    setActive(false)
+  }
+
+  const handleChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescriptionText(e.target.value)
+  }
+
+  const handleClickOpenAddingDescription = (e: React.MouseEvent<HTMLDivElement>) => {
+    setOldDescription(descriptionText);
+    setDescriptionActive(true)
+  }
+
+  const handleClickSaveDescription = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setDescriptionActive(false)
+  }
+
+  const handleClickDontSaveDescription = (e: React.MouseEvent<HTMLDivElement>) => {
+    setDescriptionText(oldDescription)
+    setDescriptionActive(false)
+  }
 
   return (
     <Modal
-      $isActive={props.active}
-      onClick={() => props.setActive(false)}
+      $isActive={active}
+      onClick={() => setActive(false)}
     >
       <Header>
-        <h3>{props.name}</h3>
-        <p>in column {props.colName}</p>
+        <h3>{name}</h3>
+        <p>in column {colName}</p>
       </Header>
 
       <Description>
         <h4>Description</h4>
 
+        <DescriptionContent
+          $isActive={(descriptionText !== '') && !descriptionActive}
+          description={descriptionText}
+          onClick={handleClickOpenAddingDescription}
+        />
+
         <AddDescriptionButton
-          $isActive={!descriptionActive}
-          onClick={() => setDescriptionActive(true)}
-        >
-          Add description...
-        </AddDescriptionButton>
+          $isActive={(descriptionText === '') && !descriptionActive}
+          description={descriptionText}
+          onClick={handleClickOpenAddingDescription}
+        />
 
         <AddDescriptionWrapper $isActive={descriptionActive}>
-          <Textarea placeholder='Add description...' />
+          <Textarea placeholder='Add description...' value={descriptionText} onChange={handleChangeDescription}/>
           <ButtonsWrapper>
-            <Button label='Save' />
-            <CloseButton onClick={() => setDescriptionActive(false)}></CloseButton>
+            <Button label='Save' onClick={handleClickSaveDescription} />
+            <CloseButton onClick={handleClickDontSaveDescription}></CloseButton>
           </ButtonsWrapper>
         </AddDescriptionWrapper>
       </Description>
@@ -47,7 +79,7 @@ export const CardModal: React.FC<CardModalProps> = (props) => {
         </AddCommentWrapper>
       </Comments>
 
-      <CloseModalButton onClick={() => props.setActive(false)}></CloseModalButton>
+      <CloseModalButton onClick={handleClickCloseModal}></CloseModalButton>
     </Modal>
   );
 }
@@ -76,22 +108,6 @@ const AddDescriptionWrapper = styled.div<thisProps>`
   display: ${(props) => (props.$isActive ? 'block' : 'none')};
 `
 
-const AddDescriptionButton = styled.div<thisProps>`
-  display: ${(props) => (props.$isActive ? 'block' : 'none')};
-  font-size: 14px;
-  width: calc(100% - 20px);
-  background-color: #EEEEEE;
-  padding: 10px;
-  height: 40px;
-  cursor: pointer;
-  margin: 10px 0 0;
-  border-radius: 3px;
-
-  &:hover {
-    background-color: #DDDDDD;
-  }
-`
-
 const Comments = styled.div`
   padding: 10px;
 `
@@ -116,6 +132,12 @@ interface CardModalProps {
   setActive: React.Dispatch<React.SetStateAction<boolean>>,
   colName: string,
   name: string,
+  description?: string,
+  comments?: {
+    id: number,
+    member: string,
+    content: string,
+  }[],
 }
 
 interface thisProps {

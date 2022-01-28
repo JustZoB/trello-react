@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Board } from './Components/Board';
 
 const App: React.FC = () => {
-  const list: List[] = [
+  const list: IList[] = [
     {
       id: 1,
       name: "ToDo",
@@ -63,19 +63,21 @@ const AppContainer = styled.div`
   background-color: #282c34;
 `
 
-export interface List {
+export interface IList {
   id: number,
   name: string,
-  list: {
+  list: ICard[],
+}
+
+export interface ICard {
+  id: number,
+  name: string,
+  description?: string,
+  comments?: {
     id: number,
-    name: string,
-    description?: string,
-    comments?: {
-      id: number,
-      member: string,
-      content: string,
-    }[],
-  }[]
+    member: string,
+    content: string,
+  }[],
 }
 
 export default App

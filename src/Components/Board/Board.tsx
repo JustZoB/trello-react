@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { List } from '../../App';
+import { IList } from '../../App';
 import { Column } from '../Column';
 import { GreetingsModal } from '../GreetingsModal';
 
@@ -51,4 +51,4 @@ const ColumnList = styled.div`
   }
 `
 
-interface BoardProps { list: List[] }
+interface BoardProps { list: IList[] }
