@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const Button: React.FC<Props> = ({type, label}) => {
+export const Button: React.FC<Props> = ({type, label, onClick}) => {
   return (
-    <StyledButton type={type}>{label}</StyledButton>
+    <StyledButton type={type} onClick={onClick}>{label}</StyledButton>
   );
 }
 
@@ -36,4 +36,5 @@ export const ButtonsWrapper = styled.div`
 interface Props {
   label: string;
   type?: 'button' | 'submit' | 'reset' | undefined;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }

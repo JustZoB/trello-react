@@ -5,8 +5,25 @@ import { Button, ButtonsWrapper } from '../../Button/Button';
 import { CloseButton } from '../../CloseButton';
 import { Textarea } from '../../Textarea';
 
-export const AddCardButton: React.FC = () => {
+export const AddCardButton: React.FC<AddCardButtonProps> = ({addCard}) => {
   const [cardAddingActive, setCardAddingActive] = useState<boolean>(false);
+  const [newCardName, setNewCardName] = useState<string>('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNewCardName(e.target.value)
+  }
+
+  const handleClickAddCard = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (newCardName !== '') {
+      addCard(newCardName)
+      setNewCardName('')
+    }
+  }
+
+  const handleClickCloseAdding = (e: React.MouseEvent<HTMLDivElement>) => {
+    setCardAddingActive(false)
+    setNewCardName('')
+  }
 
   return (
     <div>
@@ -18,10 +35,10 @@ export const AddCardButton: React.FC = () => {
         + Add card
       </StyledCard>
       <AddingCardWrapper $isActive= {cardAddingActive}>
-        <Textarea placeholder='Name your card' />
+        <Textarea placeholder='Name your card' value={newCardName} onChange={handleChange} />
         <ButtonsWrapper>
-          <Button label='Add card' />
-          <CloseButton onClick={() => setCardAddingActive(false)}></CloseButton>
+          <Button label='Add card' onClick={handleClickAddCard} />
+          <CloseButton onClick={handleClickCloseAdding}></CloseButton>
         </ButtonsWrapper>
       </AddingCardWrapper>
     </div>
@@ -40,6 +57,10 @@ const AddingCardWrapper = styled.div<AddCardProps>`
     outline: 0;
   }
 `
+
+interface AddCardButtonProps {
+  addCard: (name: string) => void
+}
 
 interface AddCardProps {
   $isActive: boolean;

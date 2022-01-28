@@ -6,9 +6,19 @@ import { TextareaHead } from '../Textarea';
 
 export const Column: React.FC<ColumnProps> = ({colName, list}) => {
   const [columnName, setColumnName] = useState<string>(colName);
+  const [columnList, setColumnList] = useState<{id: number, name: string}[]>(list);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setColumnName(e.target.value)
+  }
+
+  const addCard = (name: string) => {
+    const newCard = {
+      id: Number(Date.now()),
+      name: name
+    }
+
+    setColumnList([...columnList, newCard]);
   }
 
   return (
@@ -20,7 +30,7 @@ export const Column: React.FC<ColumnProps> = ({colName, list}) => {
         {colName}
       </TextareaHead>
       <CardList>
-        {list.map(({id, name}) => (
+        {columnList.map(({id, name}) => (
           <Card
             key={id}
             name={name}
@@ -28,7 +38,7 @@ export const Column: React.FC<ColumnProps> = ({colName, list}) => {
           />
         ))}
       </CardList>
-      <AddCardButton />
+      <AddCardButton addCard={addCard} />
     </StyledColumn>
   );
 }
@@ -55,6 +65,7 @@ const StyledColumn = styled.div`
 const CardList = styled.div`
   overflow-y: auto;
   margin-bottom: 10px;
+  padding-bottom: 2px;
 
   & > *:not(:last-child) {
     margin-bottom: 10px;

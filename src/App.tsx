@@ -68,7 +68,13 @@ export interface List {
   name: string,
   list: {
     id: number,
-    name: string
+    name: string,
+    description?: string,
+    comments?: {
+      id: number,
+      member: string,
+      content: string,
+    }[],
   }[]
 }
 
