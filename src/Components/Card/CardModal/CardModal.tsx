@@ -4,19 +4,23 @@ import { useState } from 'react';
 import { Button, ButtonsWrapper } from '../../Button/Button';
 import { CloseButton } from '../../CloseButton';
 import { CloseModalButton } from '../../CloseModalButton/CloseModalButton';
-import { Textarea } from '../../Textarea';
+import { Textarea, TextareaHead } from '../../Textarea';
 import { Modal } from '../../Modal';
 import { AddDescriptionButton } from './AddDescriptionButton';
 import { DescriptionContent } from './DescriptionContent';
 import { IComment } from '../../../App';
 import { CommentsContent } from './CommentsContent';
 
-export const CardModal: React.FC<CardModalProps> = ({active, setActive, colName, name, description, comments, memberName}) => {
+export const CardModal: React.FC<CardModalProps> = ({active, setActive, colName, name, description, comments, memberName, onChangeCardName}) => {
   const [descriptionActive, setDescriptionActive] = useState<boolean>(false);
   const [descriptionText, setDescriptionText] = useState<string>(description !== undefined ? description : '');
   const [oldDescription, setOldDescription] = useState<string>(descriptionText);
   const [commentText, setCommentText] = useState<string>('');
   const [commentsList, setCommentsList] = useState<IComment[]>(comments !== undefined ? comments : []);
+
+  const handleChangeCardName = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    onChangeCardName(e.target.value)
+  }
 
   const handleClickCloseModal = (e: React.MouseEvent<HTMLDivElement>) => {
     handleClickDontSaveDescription(e)
@@ -63,7 +67,12 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, colName,
       onClick={() => setActive(false)}
     >
       <Header>
-        <h3>{name}</h3>
+        <TextareaHead
+          value={name}
+          onChange={handleChangeCardName}
+        >
+          {name}
+        </TextareaHead>
         <p>in column {colName}</p>
       </Header>
 
@@ -106,14 +115,15 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, colName,
 }
 
 const Header = styled.div`
-  padding: 10px;
+  margin-top: 10px;
 
-  > H3 {
-    margin: 0 0 5px;
+  > textarea {
+    margin: 0 0 0 5px;
+    width: calc(100% - 60px);
   }
 
   > p {
-    margin: 0;
+    margin-left: 10px;
   }
 `
 const Description = styled.div`
@@ -156,6 +166,7 @@ interface CardModalProps {
   description?: string,
   comments?: IComment[],
   memberName: string,
+  onChangeCardName: (name: string) => void,
 }
 
 interface thisProps {

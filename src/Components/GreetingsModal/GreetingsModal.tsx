@@ -33,5 +33,5 @@ export const GreetingsModal: React.FC<Props> = ({onSubmit}) => {
 }
 
 interface Props {
-  onSubmit: (e: string) => void,
+  onSubmit: (name: string) => void,
 }

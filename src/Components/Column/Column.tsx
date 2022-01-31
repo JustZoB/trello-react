@@ -8,7 +8,6 @@ import { ICard } from '../../App';
 export const Column: React.FC<Props> = ({name, list, memberName}) => {
   const [columnName, setColumnName] = useState<string>(name);
   const [columnList, setColumnList] = useState<ICard[]>(list);
-  const colName: string = name;
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setColumnName(e.target.value)
@@ -38,7 +37,7 @@ export const Column: React.FC<Props> = ({name, list, memberName}) => {
             name={name}
             description={description}
             comments={comments}
-            colName={colName}
+            colName={columnName}
             memberName={memberName}
           />
         ))}

@@ -5,17 +5,24 @@ import { IComment } from '../../App';
 
 export const Card: React.FC<CardProps> = ({colName, name, description, comments, memberName}) => {
   const [modalActive, setModalActive] = useState<boolean>(false);
+  const [cardName, setCardName] = useState<string>(name);
+
+  const handleChange = (name: string) => {
+    setCardName(name)
+    console.log(name)
+  }
 
   return (
     <div>
       <StyledCard onClick={() => setModalActive(true)}>
-        <p>{name}</p>
+        <p>{cardName}</p>
       </StyledCard>
       <CardModal
         active={modalActive}
         setActive={setModalActive}
         colName={colName}
-        name={name}
+        name={cardName}
+        onChangeCardName={handleChange}
         description={description}
         comments={comments}
         memberName={memberName}
