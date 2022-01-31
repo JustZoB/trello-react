@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { StyledCard } from '../StyledCard';
 import { CardModal } from './CardModal';
+import { IComment } from '../../App';
 
-export const Card: React.FC<CardProps> = ({colName, name, description, comments}) => {
+export const Card: React.FC<CardProps> = ({colName, name, description, comments, memberName}) => {
   const [modalActive, setModalActive] = useState<boolean>(false);
 
   return (
@@ -17,6 +18,7 @@ export const Card: React.FC<CardProps> = ({colName, name, description, comments}
         name={name}
         description={description}
         comments={comments}
+        memberName={memberName}
       />
     </div>
   );
@@ -26,9 +28,6 @@ interface CardProps {
   colName: string,
   name: string,
   description?: string,
-  comments?: {
-    id: number,
-    member: string,
-    content: string,
-  }[],
+  comments?: IComment[],
+  memberName: string,
 }

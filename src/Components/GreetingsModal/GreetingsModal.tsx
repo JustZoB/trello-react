@@ -5,24 +5,22 @@ import { Button } from '../Button/Button';
 import { Modal } from '../Modal';
 import { Form } from '../Form/Form';
 
-export const GreetingsModal: React.FC = () => {
+export const GreetingsModal: React.FC<Props> = ({onSubmit}) => {
   const [modalActive, setModalActive] = useState<boolean>(true);
   const [name, setName] = useState<string>('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (name !== '') {
-      setModalActive(false);
-      console.log(name);
-    }
+    onSubmit(e.currentTarget.memberName.value)
+    setModalActive(false)
   }
 
   return (
     <Modal $isActive={modalActive} size='small'>
       <h4>Hello and welcome to trello clone, enter you name:</h4>
-      <Form onSubmit={(handleSubmit)}>
+      <Form onSubmit={handleSubmit}>
         <TextInput
+          name='memberName'
           type='text'
           placeholder='Enter your name...'
           value={name}
@@ -32,4 +30,8 @@ export const GreetingsModal: React.FC = () => {
       </Form>
     </Modal>
   );
+}
+
+interface Props {
+  onSubmit: (e: string) => void,
 }

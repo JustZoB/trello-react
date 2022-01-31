@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const TextInput: React.FC<Props> = ({type, placeholder, value, onChange}) => {
+export const TextInput: React.FC<Props> = ({name, type, placeholder, value, onChange}) => {
   return (
     <StyledTextInput
+      name={name}
       type={type}
       placeholder={placeholder}
       value={value}
@@ -21,6 +22,7 @@ const StyledTextInput = styled.input`
 
 interface Props {
   type?: 'text' | 'password' | 'email' | 'search' | undefined;
+  name?: string,
   placeholder?: string;
   value?: string;
   onChange?: (e: React.FormEvent<HTMLInputElement>) => void

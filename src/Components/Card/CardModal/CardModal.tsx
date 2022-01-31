@@ -8,11 +8,15 @@ import { Textarea } from '../../Textarea';
 import { Modal } from '../../Modal';
 import { AddDescriptionButton } from './AddDescriptionButton';
 import { DescriptionContent } from './DescriptionContent';
+import { IComment } from '../../../App';
+import { CommentsContent } from './CommentsContent';
 
-export const CardModal: React.FC<CardModalProps> = ({active, setActive, colName, name, description}) => {
+export const CardModal: React.FC<CardModalProps> = ({active, setActive, colName, name, description, comments, memberName}) => {
   const [descriptionActive, setDescriptionActive] = useState<boolean>(false);
   const [descriptionText, setDescriptionText] = useState<string>(description !== undefined ? description : '');
   const [oldDescription, setOldDescription] = useState<string>(descriptionText);
+  const [commentText, setCommentText] = useState<string>('');
+  const [commentsList, setCommentsList] = useState<IComment[]>(comments !== undefined ? comments : []);
 
   const handleClickCloseModal = (e: React.MouseEvent<HTMLDivElement>) => {
     handleClickDontSaveDescription(e)
@@ -35,6 +39,22 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, colName,
   const handleClickDontSaveDescription = (e: React.MouseEvent<HTMLDivElement>) => {
     setDescriptionText(oldDescription)
     setDescriptionActive(false)
+  }
+
+  const handleChangeComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setCommentText(e.target.value)
+  }
+
+  const handleClickAddComment = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const newComment = {
+      id: Number(Date.now()),
+      member: memberName,
+      content: commentText,
+    }
+
+    setCommentsList([...commentsList, newComment]);
+    setCommentText('')
+    console.log(commentsList)
   }
 
   return (
@@ -63,7 +83,7 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, colName,
         />
 
         <AddDescriptionWrapper $isActive={descriptionActive}>
-          <Textarea placeholder='Add description...' value={descriptionText} onChange={handleChangeDescription}/>
+          <Textarea placeholder='Add description...' value={descriptionText} onChange={handleChangeDescription} />
           <ButtonsWrapper>
             <Button label='Save' onClick={handleClickSaveDescription} />
             <CloseButton onClick={handleClickDontSaveDescription}></CloseButton>
@@ -74,9 +94,10 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, colName,
       <Comments>
         <h4>Comments</h4>
         <AddCommentWrapper>
-          <Textarea placeholder='Write comment...' />
-          <Button label='Save' />
+          <Textarea placeholder='Write comment...' value={commentText} onChange={handleChangeComment} />
+          <Button label='Post' onClick={handleClickAddComment} />
         </AddCommentWrapper>
+        <CommentsContent commets={commentsList} />
       </Comments>
 
       <CloseModalButton onClick={handleClickCloseModal}></CloseModalButton>
@@ -133,11 +154,8 @@ interface CardModalProps {
   colName: string,
   name: string,
   description?: string,
-  comments?: {
-    id: number,
-    member: string,
-    content: string,
-  }[],
+  comments?: IComment[],
+  memberName: string,
 }
 
 interface thisProps {

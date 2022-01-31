@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { Card } from '../Card';
 import { AddCardButton } from './AddCardButton';
 import { TextareaHead } from '../Textarea';
-import { ICard, IList } from '../../App';
+import { ICard } from '../../App';
 
-export const Column: React.FC<IList> = ({name, list}) => {
+export const Column: React.FC<Props> = ({name, list, memberName}) => {
   const [columnName, setColumnName] = useState<string>(name);
   const [columnList, setColumnList] = useState<ICard[]>(list);
   const colName: string = name;
@@ -39,6 +39,7 @@ export const Column: React.FC<IList> = ({name, list}) => {
             description={description}
             comments={comments}
             colName={colName}
+            memberName={memberName}
           />
         ))}
       </CardList>
@@ -90,3 +91,10 @@ const CardList = styled.div`
     border-radius: 10px;
   }
 `
+
+interface Props {
+  id: number,
+  name: string,
+  list: ICard[],
+  memberName: string,
+}

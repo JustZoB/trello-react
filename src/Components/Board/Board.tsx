@@ -1,21 +1,30 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { IList } from '../../App';
 import { Column } from '../Column';
 import { GreetingsModal } from '../GreetingsModal';
 
 export const Board: React.FC<BoardProps> = ({list}) => {
+  const [memberName, setMemberName] = useState<string>('');
+
+  const handleSubmit = (name: string) => {
+    setMemberName(name)
+  }
+
   return (
     <StyledBoard>
       <ColumnList>
         {list.map(({id, name, list}) => (
           <Column
+            key={id}
             id={id}
             name={name}
             list={list}
+            memberName={memberName}
           />
         ))}
       </ColumnList>
-      <GreetingsModal />
+      <GreetingsModal onSubmit={handleSubmit} />
     </StyledBoard>
   );
 }

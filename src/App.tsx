@@ -73,11 +73,13 @@ export interface ICard {
   id: number,
   name: string,
   description?: string,
-  comments?: {
-    id: number,
-    member: string,
-    content: string,
-  }[],
+  comments?: IComment[],
+}
+
+export interface IComment {
+  id: number,
+  member: string,
+  content: string,
 }
 
 export default App
