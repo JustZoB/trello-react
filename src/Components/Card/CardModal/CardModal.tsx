@@ -11,10 +11,10 @@ import { DescriptionContent } from './DescriptionContent';
 import { IComment } from '../../../App';
 import { CommentsContent } from './CommentsContent';
 
-export const CardModal: React.FC<CardModalProps> = ({active, setActive, colName, name, description, comments, memberName, onChangeCardName}) => {
+export const CardModal: React.FC<CardModalProps> = ({active, setActive, id, colName, name, description, comments, memberName, onChangeCardName, deleteCard, changeDescriptionCard}) => {
   const [descriptionActive, setDescriptionActive] = useState<boolean>(false);
-  const [descriptionText, setDescriptionText] = useState<string>(description !== undefined ? description : '');
-  const [oldDescription, setOldDescription] = useState<string>(descriptionText);
+  const [newDescription, setNewDescription] = useState<string>(description !== undefined ? description : '');
+  const [oldDescription, setOldDescription] = useState<string>(description !== undefined ? description : '');
   const [commentText, setCommentText] = useState<string>('');
   const [commentsList, setCommentsList] = useState<IComment[]>(comments !== undefined ? comments : []);
 
@@ -28,20 +28,27 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, colName,
   }
 
   const handleChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDescriptionText(e.target.value)
+    setNewDescription(e.target.value)
   }
 
   const handleClickOpenAddingDescription = (e: React.MouseEvent<HTMLDivElement>) => {
-    setOldDescription(descriptionText);
+    setOldDescription(newDescription);
     setDescriptionActive(true)
   }
 
   const handleClickSaveDescription = (e: React.MouseEvent<HTMLButtonElement>) => {
+    changeDescriptionCard(id, newDescription)
+    setNewDescription(newDescription)
     setDescriptionActive(false)
   }
 
   const handleClickDontSaveDescription = (e: React.MouseEvent<HTMLDivElement>) => {
-    setDescriptionText(oldDescription)
+    setNewDescription(oldDescription)
+    setDescriptionActive(false)
+  }
+
+  const handleClickDeleteCard = (e: React.MouseEvent<HTMLButtonElement>) => {
+    deleteCard(id)
     setDescriptionActive(false)
   }
 
@@ -58,7 +65,6 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, colName,
 
     setCommentsList([...commentsList, newComment]);
     setCommentText('')
-    console.log(commentsList)
   }
 
   return (
@@ -80,19 +86,19 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, colName,
         <h4>Description</h4>
 
         <DescriptionContent
-          $isActive={(descriptionText !== '') && !descriptionActive}
-          description={descriptionText}
+          $isActive={(newDescription !== '' && newDescription !== undefined) && !descriptionActive}
+          description={newDescription}
           onClick={handleClickOpenAddingDescription}
         />
 
         <AddDescriptionButton
-          $isActive={(descriptionText === '') && !descriptionActive}
-          description={descriptionText}
+          $isActive={(newDescription === '' || newDescription === undefined) && !descriptionActive}
+          description={newDescription}
           onClick={handleClickOpenAddingDescription}
         />
 
         <AddDescriptionWrapper $isActive={descriptionActive}>
-          <Textarea placeholder='Add description...' value={descriptionText} onChange={handleChangeDescription} />
+          <Textarea placeholder='Add description...' value={description} onChange={handleChangeDescription} />
           <ButtonsWrapper>
             <Button label='Save' onClick={handleClickSaveDescription} />
             <CloseButton onClick={handleClickDontSaveDescription}></CloseButton>
@@ -108,6 +114,8 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, colName,
         </AddCommentWrapper>
         <CommentsContent commets={commentsList} />
       </Comments>
+
+      <Button label='Delete this card' onClick={handleClickDeleteCard} />
 
       <CloseModalButton onClick={handleClickCloseModal}></CloseModalButton>
     </Modal>
@@ -161,12 +169,15 @@ const AddCommentWrapper = styled.div`
 interface CardModalProps {
   active: boolean,
   setActive: React.Dispatch<React.SetStateAction<boolean>>,
+  id: number,
   colName: string,
   name: string,
   description?: string,
   comments?: IComment[],
   memberName: string,
   onChangeCardName: (name: string) => void,
+  deleteCard: (id: number) => void,
+  changeDescriptionCard: (id: number, description: string) => void,
 }
 
 interface thisProps {

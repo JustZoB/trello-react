@@ -66,7 +66,7 @@ const AppContainer = styled.div`
 export interface IList {
   id: number,
   name: string,
-  list: ICard[],
+  list?: ICard[],
 }
 
 export interface ICard {

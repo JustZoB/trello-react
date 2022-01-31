@@ -7,7 +7,7 @@ import { ICard } from '../../App';
 
 export const Column: React.FC<Props> = ({name, list, memberName}) => {
   const [columnName, setColumnName] = useState<string>(name);
-  const [columnList, setColumnList] = useState<ICard[]>(list);
+  const [columnList, setColumnList] = useState<ICard[]>(list !== undefined ? list : []);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setColumnName(e.target.value)
@@ -22,6 +22,15 @@ export const Column: React.FC<Props> = ({name, list, memberName}) => {
     setColumnList([...columnList, newCard]);
   }
 
+  const deleteCard = (itemId: number) => {
+    setColumnList(columnList.filter(item => item.id !== itemId))
+  }
+
+  const changeDescriptionCard = (itemId: number, description: string) => {
+    // eslint-disable-next-line array-callback-return
+    columnList.map((item: ICard) => { if (item.id === itemId) {item.description = description} })
+  }
+
   return (
     <StyledColumn>
       <TextareaHead
@@ -30,15 +39,18 @@ export const Column: React.FC<Props> = ({name, list, memberName}) => {
       >
         {name}
       </TextareaHead>
-      <CardList>
+      <CardList $isActive={columnList.length !== 0}>
         {columnList.map(({id, name, description, comments}) => (
           <Card
             key={id}
+            id={id}
             name={name}
             description={description}
             comments={comments}
             colName={columnName}
             memberName={memberName}
+            deleteCard={deleteCard}
+            changeDescriptionCard={changeDescriptionCard}
           />
         ))}
       </CardList>
@@ -66,7 +78,8 @@ const StyledColumn = styled.div`
   }
 `
 
-const CardList = styled.div`
+const CardList = styled.div<StyledProps>`
+  display: ${(props) => (props.$isActive ? 'block' : 'none')};
   overflow-y: auto;
   margin-bottom: 10px;
   padding-bottom: 2px;
@@ -94,6 +107,10 @@ const CardList = styled.div`
 interface Props {
   id: number,
   name: string,
-  list: ICard[],
+  list?: ICard[],
   memberName: string,
+}
+
+interface StyledProps {
+  $isActive: boolean,
 }

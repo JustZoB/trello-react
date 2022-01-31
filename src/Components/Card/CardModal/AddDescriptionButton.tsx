@@ -7,7 +7,7 @@ export const AddDescriptionButton: React.FC<Props> = ({$isActive, description, o
       $isActive={$isActive}
       onClick={onClick}
     >
-      {description ? description : 'Add description...'}
+      {(description !== '' && description !== undefined) ? description : 'Add description...'}
     </StyledAddDescriptionButton>
   );
 }
