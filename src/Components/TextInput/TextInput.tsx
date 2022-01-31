@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const TextInput: React.FC<Props> = ({name, type, placeholder, value, onChange}) => {
+export const TextInput: React.FC<Props> = ({name, type, placeholder, value, onChange, onKeyPress}) => {
   return (
     <StyledTextInput
       name={name}
@@ -9,6 +9,7 @@ export const TextInput: React.FC<Props> = ({name, type, placeholder, value, onCh
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      onKeyPress={onKeyPress}
     />
   );
 }
@@ -21,9 +22,10 @@ const StyledTextInput = styled.input`
 `
 
 interface Props {
-  type?: 'text' | 'password' | 'email' | 'search' | undefined;
+  type?: 'text' | 'password' | 'email' | 'search' | undefined,
   name?: string,
-  placeholder?: string;
-  value?: string;
-  onChange?: (e: React.FormEvent<HTMLInputElement>) => void
+  placeholder?: string,
+  value?: string,
+  onChange?: (e: React.FormEvent<HTMLInputElement>) => void,
+  onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void,
 }

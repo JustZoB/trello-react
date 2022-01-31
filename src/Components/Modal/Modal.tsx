@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { ModalContent } from './ModalContent';
 
-export const Modal: React.FC<ModalProps> = ({$isActive, size, onClick, children}) => {
+export const Modal: React.FC<ModalProps> = ({$isActive, size, onClick, onKeyPress, children}) => {
   return (
     <StyledModal
       $isActive={$isActive}
       onClick={onClick}
+      onKeyPress={onKeyPress}
     >
       <ModalContent
         size={size}
@@ -33,7 +34,8 @@ const StyledModal = styled.div<ModalProps>`
 `
 
 interface ModalProps {
-  $isActive: boolean;
-  size?: 'small' | 'big' | undefined;
-  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  $isActive: boolean,
+  size?: 'small' | 'big' | undefined,
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void,
+  onKeyPress?: (e: React.KeyboardEvent<HTMLDivElement>) => void,
 }

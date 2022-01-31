@@ -19,6 +19,6 @@ const StyledModalContent = styled.div<ModalContentProps>`
 `
 
 interface ModalContentProps {
-  size?:  'small' | 'big' | undefined;
-  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  size?:  'small' | 'big' | undefined,
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void,
 }

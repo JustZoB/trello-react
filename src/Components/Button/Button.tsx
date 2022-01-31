@@ -34,7 +34,7 @@ export const ButtonsWrapper = styled.div`
 `
 
 interface Props {
-  label: string;
-  type?: 'button' | 'submit' | 'reset' | undefined;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  label: string,
+  type?: 'button' | 'submit' | 'reset' | undefined,
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void,
 }

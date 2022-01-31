@@ -60,4 +60,6 @@ const ColumnList = styled.div`
   }
 `
 
-interface BoardProps { list: IList[] }
+interface BoardProps {
+  list: IList[],
+}

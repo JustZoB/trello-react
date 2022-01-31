@@ -22,6 +22,6 @@ StyledCard.defaultProps = {
 }
 
 interface CardProps {
-  $isActive?: boolean;
-  variant?: string;
+  $isActive?: boolean,
+  variant?: string,
 }

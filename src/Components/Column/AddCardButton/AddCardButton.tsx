@@ -59,9 +59,9 @@ const AddingCardWrapper = styled.div<AddCardProps>`
 `
 
 interface AddCardButtonProps {
-  addCard: (name: string) => void
+  addCard: (name: string) => void,
 }
 
 interface AddCardProps {
-  $isActive: boolean;
+  $isActive: boolean,
 }

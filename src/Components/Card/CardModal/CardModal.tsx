@@ -42,6 +42,20 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, id, colN
     setDescriptionActive(false)
   }
 
+  const handleKeywordSaveDescription = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    console.log(e.key)
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      changeDescriptionCard(id, newDescription)
+      setNewDescription(newDescription)
+      setDescriptionActive(false)
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      setNewDescription(oldDescription)
+      setDescriptionActive(false)
+    }
+  }
+
   const handleClickDontSaveDescription = (e: React.MouseEvent<HTMLDivElement>) => {
     setNewDescription(oldDescription)
     setDescriptionActive(false)
@@ -57,6 +71,17 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, id, colN
   }
 
   const handleClickAddComment = (e: React.MouseEvent<HTMLButtonElement>) => {
+    addComment();
+  }
+
+  const handleKeywordAddComment = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addComment();
+    }
+  }
+
+  const addComment = () => {
     const newComment = {
       id: Number(Date.now()),
       member: memberName,
@@ -98,7 +123,7 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, id, colN
         />
 
         <AddDescriptionWrapper $isActive={descriptionActive}>
-          <Textarea placeholder='Add description...' value={description} onChange={handleChangeDescription} />
+          <Textarea placeholder='Add description...' value={description} onChange={handleChangeDescription} onKeyPress={handleKeywordSaveDescription} />
           <ButtonsWrapper>
             <Button label='Save' onClick={handleClickSaveDescription} />
             <CloseButton onClick={handleClickDontSaveDescription}></CloseButton>
@@ -109,7 +134,7 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, id, colN
       <Comments>
         <h4>Comments</h4>
         <AddCommentWrapper>
-          <Textarea placeholder='Write comment...' value={commentText} onChange={handleChangeComment} />
+          <Textarea placeholder='Write comment...' value={commentText} onChange={handleChangeComment} onKeyPress={handleKeywordAddComment} />
           <Button label='Post' onClick={handleClickAddComment} />
         </AddCommentWrapper>
         <CommentsContent commets={commentsList} />
@@ -181,5 +206,5 @@ interface CardModalProps {
 }
 
 interface thisProps {
-  $isActive: boolean;
+  $isActive: boolean,
 }

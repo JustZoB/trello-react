@@ -29,7 +29,7 @@ const StyledAddDescriptionButton = styled.div<Props>`
 `
 
 interface Props {
-  $isActive: boolean;
-  description?: string;
-  onClick: (e: React.MouseEvent<HTMLDivElement>) => void
+  $isActive: boolean,
+  description?: string,
+  onClick: (e: React.MouseEvent<HTMLDivElement>) => void,
 }

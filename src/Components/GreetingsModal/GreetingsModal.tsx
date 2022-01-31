@@ -15,6 +15,14 @@ export const GreetingsModal: React.FC<Props> = ({onSubmit}) => {
     setModalActive(false)
   }
 
+  const handleKeywordEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      onSubmit(e.currentTarget.value)
+      setModalActive(false)
+    }
+  }
+
   return (
     <Modal $isActive={modalActive} size='small'>
       <h4>Hello and welcome to trello clone, enter you name:</h4>
@@ -25,6 +33,7 @@ export const GreetingsModal: React.FC<Props> = ({onSubmit}) => {
           placeholder='Enter your name...'
           value={name}
           onChange={(e: React.FormEvent<HTMLInputElement>) => setName(e.currentTarget.value)}
+          onKeyPress={handleKeywordEnter}
         />
         <Button type='submit' label='Enter' />
       </Form>
