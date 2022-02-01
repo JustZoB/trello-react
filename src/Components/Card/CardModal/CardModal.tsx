@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { Button, ButtonsWrapper } from '../../Button/Button';
@@ -17,6 +17,7 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, id, colN
   const [oldDescription, setOldDescription] = useState<string>(description !== undefined ? description : '');
   const [commentText, setCommentText] = useState<string>('');
   const [commentsList, setCommentsList] = useState<IComment[]>(comments !== undefined ? comments : []);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
   const handleChangeCardName = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     onChangeCardName(e.target.value)
@@ -34,6 +35,11 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, id, colN
   const handleClickOpenAddingDescription = (e: React.MouseEvent<HTMLDivElement>) => {
     setOldDescription(newDescription);
     setDescriptionActive(true)
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      console.log(descriptionRef.current)
+      descriptionRef.current?.focus();
+    }, [])
   }
 
   const handleClickSaveDescription = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -123,10 +129,16 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, id, colN
         />
 
         <AddDescriptionWrapper $isActive={descriptionActive}>
-          <Textarea placeholder='Add description...' value={description} onChange={handleChangeDescription} onKeyPress={handleKeywordSaveDescription} />
+          <Textarea
+            placeholder='Add description...'
+            value={description}
+            onChange={handleChangeDescription}
+            onKeyPress={handleKeywordSaveDescription}
+            ref={descriptionRef}
+          />
           <ButtonsWrapper>
             <Button label='Save' onClick={handleClickSaveDescription} />
-            <CloseButton onClick={handleClickDontSaveDescription}></CloseButton>
+            <CloseButton onClick={handleClickDontSaveDescription} />
           </ButtonsWrapper>
         </AddDescriptionWrapper>
       </Description>
@@ -134,7 +146,12 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, id, colN
       <Comments>
         <h4>Comments</h4>
         <AddCommentWrapper>
-          <Textarea placeholder='Write comment...' value={commentText} onChange={handleChangeComment} onKeyPress={handleKeywordAddComment} />
+          <Textarea
+            placeholder='Write comment...'
+            value={commentText}
+            onChange={handleChangeComment}
+            onKeyPress={handleKeywordAddComment}
+          />
           <Button label='Post' onClick={handleClickAddComment} />
         </AddCommentWrapper>
         <CommentsContent commets={commentsList} />
@@ -142,7 +159,7 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, id, colN
 
       <Button label='Delete this card' onClick={handleClickDeleteCard} />
 
-      <CloseModalButton onClick={handleClickCloseModal}></CloseModalButton>
+      <CloseModalButton onClick={handleClickCloseModal} />
     </Modal>
   );
 }
