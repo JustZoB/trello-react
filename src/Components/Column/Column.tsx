@@ -39,21 +39,25 @@ export const Column: React.FC<Props> = ({name, list, memberName}) => {
       >
         {name}
       </TextareaHead>
-      <CardList $isActive={columnList.length !== 0}>
-        {columnList.map(({id, name, description, comments}) => (
-          <Card
-            key={id}
-            id={id}
-            name={name}
-            description={description}
-            comments={comments}
-            colName={columnName}
-            memberName={memberName}
-            deleteCard={deleteCard}
-            changeDescriptionCard={changeDescriptionCard}
-          />
-        ))}
-      </CardList>
+
+      {columnList.length !== 0 &&
+        <CardList>
+          {columnList.map(({id, name, description, comments}) => (
+            <Card
+              key={id}
+              id={id}
+              name={name}
+              description={description}
+              comments={comments}
+              colName={columnName}
+              memberName={memberName}
+              deleteCard={deleteCard}
+              changeDescriptionCard={changeDescriptionCard}
+            />
+          ))}
+        </CardList>
+      }
+
       <AddCardButton addCard={addCard} />
     </StyledColumn>
   );
@@ -78,8 +82,7 @@ const StyledColumn = styled.div`
   }
 `
 
-const CardList = styled.div<StyledProps>`
-  display: ${(props) => (props.$isActive ? 'block' : 'none')};
+const CardList = styled.div`
   overflow-y: auto;
   margin-bottom: 10px;
   padding-bottom: 2px;
@@ -109,8 +112,4 @@ interface Props {
   name: string,
   list?: ICard[],
   memberName: string,
-}
-
-interface StyledProps {
-  $isActive: boolean,
 }

@@ -3,22 +3,25 @@ import { ModalContent } from './ModalContent';
 
 export const Modal: React.FC<ModalProps> = ({$isActive, size, onClick, onKeyPress, children}) => {
   return (
-    <StyledModal
-      $isActive={$isActive}
-      onClick={onClick}
-      onKeyPress={onKeyPress}
-    >
-      <ModalContent
-        size={size}
-        onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
+    <>
+    {$isActive &&
+      <StyledModal
+        onClick={onClick}
+        onKeyPress={onKeyPress}
       >
-        {children}
-      </ModalContent>
-    </StyledModal>
+        <ModalContent
+          size={size}
+          onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
+        >
+          {children}
+        </ModalContent>
+      </StyledModal>
+    }
+    </>
   );
 }
 
-const StyledModal = styled.div<ModalProps>`
+const StyledModal = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -30,7 +33,6 @@ const StyledModal = styled.div<ModalProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: ${(props) => (props.$isActive ? 'scale(1)' : 'scale(0)')};
 `
 
 interface ModalProps {

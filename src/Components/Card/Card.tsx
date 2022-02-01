@@ -16,19 +16,21 @@ export const Card: React.FC<CardProps> = ({id, colName, name, description, comme
       <StyledCard onClick={() => setModalActive(true)}>
         <p>{cardName}</p>
       </StyledCard>
-      <CardModal
-        active={modalActive}
-        setActive={setModalActive}
-        id={id}
-        colName={colName}
-        name={cardName}
-        onChangeCardName={handleChange}
-        description={description}
-        comments={comments}
-        memberName={memberName}
-        deleteCard={deleteCard}
-        changeDescriptionCard={changeDescriptionCard}
-      />
+      {modalActive &&
+        <CardModal
+          active={modalActive}
+          setActive={setModalActive}
+          id={id}
+          colName={colName}
+          name={cardName}
+          onChangeCardName={handleChange}
+          description={description}
+          comments={comments}
+          memberName={memberName}
+          deleteCard={deleteCard}
+          changeDescriptionCard={changeDescriptionCard}
+        />
+      }
     </div>
   );
 }

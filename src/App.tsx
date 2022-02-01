@@ -30,14 +30,24 @@ const App: React.FC = () => {
       id: 2,
       name: "Progress",
       list: [
-        { id: 1,  name: "Work" }
+        { id: 1,  name: "Work", description: "Hello, im work" }
       ]
     },
     {
       id: 3,
       name: "Testing",
       list: [
-        { id: 1, name: "Testing" }
+        {
+          id: 1,
+          name: "Testing",
+          comments: [
+            {
+              id: 1,
+              member: "Testing Guy",
+              content: "This is bullshit",
+            }
+          ]
+        }
       ]
     },
     {

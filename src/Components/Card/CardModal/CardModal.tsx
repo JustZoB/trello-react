@@ -19,25 +19,25 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, id, colN
   const [commentsList, setCommentsList] = useState<IComment[]>(comments !== undefined ? comments : []);
 
   const handleClickCloseModal = (e: React.MouseEvent<HTMLDivElement>) => {
-    handleClickDontSaveDescription(e)
+    setNewDescription(oldDescription)
+    setDescriptionActive(false)
     setActive(false)
   }
 
-  const escapeCloseModal: EventListener = useCallback((e: KeyboardEvent) => {
+  const escapeCloseModal = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') {
       e.preventDefault();
       setNewDescription(oldDescription)
       setDescriptionActive(false)
+      setActive(false)
     }
-
-    return e
-  }, [oldDescription]);
+  }, [oldDescription, setActive]);
 
   useEffect(() => {
-    document.addEventListener("keydown", escapeCloseModal);
+    window.addEventListener("keydown", escapeCloseModal);
 
     return () => {
-      document.removeEventListener("keydown", escapeCloseModal);
+      window.removeEventListener("keydown", escapeCloseModal);
     }
   }, [escapeCloseModal])
 
