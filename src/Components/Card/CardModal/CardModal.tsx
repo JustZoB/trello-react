@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { Button, ButtonsWrapper } from '../../Button/Button';
@@ -17,15 +17,32 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, id, colN
   const [oldDescription, setOldDescription] = useState<string>(description !== undefined ? description : '');
   const [commentText, setCommentText] = useState<string>('');
   const [commentsList, setCommentsList] = useState<IComment[]>(comments !== undefined ? comments : []);
-  const descriptionRef = useRef<HTMLTextAreaElement>(null);
-
-  const handleChangeCardName = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    onChangeCardName(e.target.value)
-  }
 
   const handleClickCloseModal = (e: React.MouseEvent<HTMLDivElement>) => {
     handleClickDontSaveDescription(e)
     setActive(false)
+  }
+
+  const escapeCloseModal: EventListener = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      setNewDescription(oldDescription)
+      setDescriptionActive(false)
+    }
+
+    return e
+  }, [oldDescription]);
+
+  useEffect(() => {
+    document.addEventListener("keydown", escapeCloseModal);
+
+    return () => {
+      document.removeEventListener("keydown", escapeCloseModal);
+    }
+  }, [escapeCloseModal])
+
+  const handleChangeCardName = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    onChangeCardName(e.target.value)
   }
 
   const handleChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -33,13 +50,8 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, id, colN
   }
 
   const handleClickOpenAddingDescription = (e: React.MouseEvent<HTMLDivElement>) => {
-    setOldDescription(newDescription);
+    setOldDescription(newDescription)
     setDescriptionActive(true)
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      console.log(descriptionRef.current)
-      descriptionRef.current?.focus();
-    }, [])
   }
 
   const handleClickSaveDescription = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -49,15 +61,10 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, id, colN
   }
 
   const handleKeywordSaveDescription = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    console.log(e.key)
     if (e.key === 'Enter') {
       e.preventDefault();
       changeDescriptionCard(id, newDescription)
       setNewDescription(newDescription)
-      setDescriptionActive(false)
-    } else if (e.key === 'Escape') {
-      e.preventDefault();
-      setNewDescription(oldDescription)
       setDescriptionActive(false)
     }
   }
@@ -116,31 +123,37 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, id, colN
       <Description>
         <h4>Description</h4>
 
-        <DescriptionContent
-          $isActive={(newDescription !== '' && newDescription !== undefined) && !descriptionActive}
-          description={newDescription}
-          onClick={handleClickOpenAddingDescription}
-        />
-
-        <AddDescriptionButton
-          $isActive={(newDescription === '' || newDescription === undefined) && !descriptionActive}
-          description={newDescription}
-          onClick={handleClickOpenAddingDescription}
-        />
-
-        <AddDescriptionWrapper $isActive={descriptionActive}>
-          <Textarea
-            placeholder='Add description...'
-            value={description}
-            onChange={handleChangeDescription}
-            onKeyPress={handleKeywordSaveDescription}
-            ref={descriptionRef}
+        {(newDescription !== '' && newDescription !== undefined) && !descriptionActive &&
+          <DescriptionContent
+            description={newDescription}
+            onClick={handleClickOpenAddingDescription}
           />
-          <ButtonsWrapper>
-            <Button label='Save' onClick={handleClickSaveDescription} />
-            <CloseButton onClick={handleClickDontSaveDescription} />
-          </ButtonsWrapper>
-        </AddDescriptionWrapper>
+        }
+
+        {(newDescription === '' || newDescription === undefined) && !descriptionActive &&
+          <AddDescriptionButton
+            description={newDescription}
+            onClick={handleClickOpenAddingDescription}
+          />
+        }
+
+        {descriptionActive &&
+          <AddDescriptionWrapper>
+            <Textarea
+              placeholder='Add description...'
+              value={newDescription}
+              onChange={handleChangeDescription}
+              onKeyPress={handleKeywordSaveDescription}
+              autoFocus={true}
+              onFocus={e => e.currentTarget.select()}
+            />
+            <ButtonsWrapper>
+              <Button label='Save' onClick={handleClickSaveDescription} />
+              <CloseButton onClick={handleClickDontSaveDescription} />
+            </ButtonsWrapper>
+          </AddDescriptionWrapper>
+        }
+        
       </Description>
 
       <Comments>
@@ -185,8 +198,8 @@ const Description = styled.div`
   }
 `
 
-const AddDescriptionWrapper = styled.div<thisProps>`
-  display: ${(props) => (props.$isActive ? 'block' : 'none')};
+const AddDescriptionWrapper = styled.div`
+  display: block;
 `
 
 const Comments = styled.div`
@@ -220,8 +233,4 @@ interface CardModalProps {
   onChangeCardName: (name: string) => void,
   deleteCard: (id: number) => void,
   changeDescriptionCard: (id: number, description: string) => void,
-}
-
-interface thisProps {
-  $isActive: boolean,
 }

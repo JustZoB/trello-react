@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const DescriptionContent: React.FC<Props> = ({$isActive, description, onClick}) => {
+export const DescriptionContent: React.FC<Props> = ({description, onClick}) => {
   return (
     <StyledDescriptionContent
-      $isActive={$isActive}
       onClick={onClick}
     >
       {description}
@@ -12,8 +11,7 @@ export const DescriptionContent: React.FC<Props> = ({$isActive, description, onC
   );
 }
 
-const StyledDescriptionContent = styled.div<Props>`
-  display: ${(props) => (props.$isActive ? 'block' : 'none')};
+const StyledDescriptionContent = styled.div`
   font-size: 14px;
   width: calc(100% - 20px);
   background-color: white;
@@ -24,7 +22,6 @@ const StyledDescriptionContent = styled.div<Props>`
 `
 
 interface Props {
-  $isActive: boolean,
   description?: string,
   onClick: (e: React.MouseEvent<HTMLDivElement>) => void,
 }

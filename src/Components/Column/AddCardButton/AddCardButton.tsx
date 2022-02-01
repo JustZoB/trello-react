@@ -27,27 +27,34 @@ export const AddCardButton: React.FC<AddCardButtonProps> = ({addCard}) => {
 
   return (
     <div>
-      <StyledCard
-        variant='secondary'
-        $isActive= {!cardAddingActive}
-        onClick={() => setCardAddingActive(true)}
-      >
-        + Add card
-      </StyledCard>
-      <AddingCardWrapper $isActive= {cardAddingActive}>
-        <Textarea placeholder='Name your card' value={newCardName} onChange={handleChange} />
-        <ButtonsWrapper>
-          <Button label='Add card' onClick={handleClickAddCard} />
-          <CloseButton onClick={handleClickCloseAdding}></CloseButton>
-        </ButtonsWrapper>
-      </AddingCardWrapper>
+      {!cardAddingActive &&
+        <StyledCard
+          variant='secondary'
+          onClick={() => setCardAddingActive(true)}
+        >
+          + Add card
+        </StyledCard>
+      }
+
+      {cardAddingActive &&
+        <AddingCardWrapper>
+          <Textarea
+            placeholder='Name your card'
+            value={newCardName}
+            onChange={handleChange}
+            autoFocus={true}
+          />
+          <ButtonsWrapper>
+            <Button label='Add card' onClick={handleClickAddCard} />
+            <CloseButton onClick={handleClickCloseAdding}></CloseButton>
+          </ButtonsWrapper>
+        </AddingCardWrapper>
+      }
     </div>
   );
 }
 
-const AddingCardWrapper = styled.div<AddCardProps>`
-  display: ${(props) => (props.$isActive ? 'block' : 'none')};
-
+const AddingCardWrapper = styled.div`
   Textarea {
     margin: 0 0 10px;
     padding: 10px;
@@ -60,8 +67,4 @@ const AddingCardWrapper = styled.div<AddCardProps>`
 
 interface AddCardButtonProps {
   addCard: (name: string) => void,
-}
-
-interface AddCardProps {
-  $isActive: boolean,
 }

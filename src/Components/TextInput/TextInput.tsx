@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const TextInput: React.FC<Props> = ({name, type, placeholder, value, onChange, onKeyPress}) => {
+export const TextInput: React.FC<Props> = ({name, type, placeholder, value, onChange, onKeyPress, autoFocus}) => {
   return (
     <StyledTextInput
       name={name}
@@ -10,6 +10,7 @@ export const TextInput: React.FC<Props> = ({name, type, placeholder, value, onCh
       value={value}
       onChange={onChange}
       onKeyPress={onKeyPress}
+      autoFocus={autoFocus}
     />
   );
 }
@@ -28,4 +29,5 @@ interface Props {
   value?: string,
   onChange?: (e: React.FormEvent<HTMLInputElement>) => void,
   onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void,
+  autoFocus?: boolean,
 }

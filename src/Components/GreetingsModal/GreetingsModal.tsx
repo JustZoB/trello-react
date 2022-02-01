@@ -34,6 +34,7 @@ export const GreetingsModal: React.FC<Props> = ({onSubmit}) => {
           value={name}
           onChange={(e: React.FormEvent<HTMLInputElement>) => setName(e.currentTarget.value)}
           onKeyPress={handleKeywordEnter}
+          autoFocus={true}
         />
         <Button type='submit' label='Enter' />
       </Form>
