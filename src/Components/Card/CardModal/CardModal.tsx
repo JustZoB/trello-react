@@ -11,12 +11,23 @@ import { DescriptionContent } from './DescriptionContent';
 import { IComment } from '../../../App';
 import { CommentsContent } from './CommentsContent';
 
-export const CardModal: React.FC<CardModalProps> = ({active, setActive, id, colName, name, description, comments, memberName, onChangeCardName, deleteCard, changeDescriptionCard}) => {
+export const CardModal: React.FC<CardModalProps> = ({
+    active,
+    setActive,
+    id,
+    colName,
+    name,
+    description,
+    comments,
+    onChangeCardName,
+    deleteCard,
+    changeDescriptionCard,
+    addComment
+  }) => {
   const [descriptionActive, setDescriptionActive] = useState<boolean>(false);
   const [newDescription, setNewDescription] = useState<string>(description !== undefined ? description : '');
   const [oldDescription, setOldDescription] = useState<string>(description !== undefined ? description : '');
   const [commentText, setCommentText] = useState<string>('');
-  const [commentsList, setCommentsList] = useState<IComment[]>(comments !== undefined ? comments : []);
 
   const handleClickCloseModal = (e: React.MouseEvent<HTMLDivElement>) => {
     setNewDescription(oldDescription)
@@ -84,25 +95,16 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, id, colN
   }
 
   const handleClickAddComment = (e: React.MouseEvent<HTMLButtonElement>) => {
-    addComment();
+    addComment(id, commentText);
+    setCommentText('')
   }
 
   const handleKeywordAddComment = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      addComment();
+      addComment(id, commentText);
+      setCommentText('')
     }
-  }
-
-  const addComment = () => {
-    const newComment = {
-      id: Number(Date.now()),
-      member: memberName,
-      content: commentText,
-    }
-
-    setCommentsList([...commentsList, newComment]);
-    setCommentText('')
   }
 
   return (
@@ -167,7 +169,7 @@ export const CardModal: React.FC<CardModalProps> = ({active, setActive, id, colN
           />
           <Button label='Post' onClick={handleClickAddComment} />
         </AddCommentWrapper>
-        <CommentsContent commets={commentsList} />
+        <CommentsContent comments={comments} />
       </Comments>
 
       <Button label='Delete this card' onClick={handleClickDeleteCard} />
@@ -229,8 +231,8 @@ interface CardModalProps {
   name: string,
   description?: string,
   comments?: IComment[],
-  memberName: string,
   onChangeCardName: (name: string) => void,
   deleteCard: (id: number) => void,
   changeDescriptionCard: (id: number, description: string) => void,
+  addComment: (id: number, commentText: string) => void,
 }

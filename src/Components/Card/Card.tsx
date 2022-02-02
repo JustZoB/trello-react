@@ -3,7 +3,7 @@ import { StyledCard } from '../StyledCard';
 import { CardModal } from './CardModal';
 import { IComment } from '../../App';
 
-export const Card: React.FC<CardProps> = ({id, colName, name, description, comments, memberName, deleteCard, changeDescriptionCard}) => {
+export const Card: React.FC<CardProps> = ({id, colName, name, description, comments, deleteCard, changeDescriptionCard, addComment}) => {
   const [modalActive, setModalActive] = useState<boolean>(false);
   const [cardName, setCardName] = useState<string>(name);
 
@@ -26,9 +26,9 @@ export const Card: React.FC<CardProps> = ({id, colName, name, description, comme
           onChangeCardName={handleChange}
           description={description}
           comments={comments}
-          memberName={memberName}
           deleteCard={deleteCard}
           changeDescriptionCard={changeDescriptionCard}
+          addComment={addComment}
         />
       }
     </div>
@@ -41,7 +41,7 @@ interface CardProps {
   name: string,
   description?: string,
   comments?: IComment[],
-  memberName: string,
   deleteCard: (id: number) => void,
   changeDescriptionCard: (id: number, description: string) => void,
+  addComment: (id: number, commentText: string) => void,
 }

@@ -27,8 +27,30 @@ export const Column: React.FC<Props> = ({name, list, memberName}) => {
   }
 
   const changeDescriptionCard = (itemId: number, description: string) => {
-    // eslint-disable-next-line array-callback-return
-    columnList.map((item: ICard) => { if (item.id === itemId) {item.description = description} })
+    console.log('changed')
+    columnList.map((item: ICard) => {
+      if (item.id === itemId) {
+        item.description = description
+      }
+    })
+  }
+
+  const addComment = (itemId: number, commentText: string) => {
+    const newComment = {
+      id: Number(Date.now()),
+      member: memberName,
+      content: commentText,
+    }
+
+    columnList.map((item: ICard) => {
+      if (item.id === itemId) {
+        if (item.comments === undefined) {
+          item.comments = [newComment]
+        } else {
+          item.comments = [...item.comments, newComment]
+        }
+      }
+    })
   }
 
   return (
@@ -50,9 +72,9 @@ export const Column: React.FC<Props> = ({name, list, memberName}) => {
               description={description}
               comments={comments}
               colName={columnName}
-              memberName={memberName}
               deleteCard={deleteCard}
               changeDescriptionCard={changeDescriptionCard}
+              addComment={addComment}
             />
           ))}
         </CardList>

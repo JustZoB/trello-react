@@ -2,21 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 import { IComment } from '../../../App';
 
-export const CommentsContent: React.FC<Props> = ({commets}) => {
+export const CommentsContent: React.FC<Props> = ({comments}) => {
   return (
-    <StyledCommentsContent>
-      {commets.map(({id, member, content}) => (
-        <StyledComment key={id}>
-          <Avatar title={member}>{member.charAt(0).toUpperCase()}</Avatar>
-          <CommentContent>
-            <Member>{member}</Member>
-            <Comment>{content}</Comment>
-          </CommentContent>
-          
-          <p></p>
-        </StyledComment>
-      ))}
-    </StyledCommentsContent>
+    <>
+    {(comments !== undefined && comments.length !== 0) &&
+      <StyledCommentsContent>
+        {comments.map(({id, member, content}) => (
+          <StyledComment key={id}>
+            <Avatar title={member}>{member.charAt(0).toUpperCase()}</Avatar>
+            <CommentContent>
+              <Member>{member}</Member>
+              <Comment>{content}</Comment>
+            </CommentContent>
+            <p></p>
+          </StyledComment>
+        ))}
+      </StyledCommentsContent>
+    }
+    </>
   );
 }
 
@@ -60,5 +63,5 @@ const Comment = styled.div`
 `
 
 interface Props {
-  commets: IComment[],
+  comments?: IComment[],
 }
