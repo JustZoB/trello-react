@@ -2,7 +2,7 @@
   {
     "columnId": 1,
     "name": "ToDo",
-    "list": [
+    "cards": [
       { "id": 1, "name": "Vacuum" },
       { "id": 2, "name": "Bath" },
       { "id": 3, "name": "Shop" },
@@ -24,14 +24,14 @@
   {
     "columnId": 2,
     "name": "Progress",
-    "list": [
+    "cards": [
       { "id": 1,  "name": "Work", "description": "Hello, im work" }
     ]
   },
   {
     "columnId": 3,
     "name": "Testing",
-    "list": [
+    "cards": [
       {
         "id": 1,
         "name": "Testing",

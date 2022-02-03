@@ -8,7 +8,7 @@ import { ICard } from '../../interfaces';
 export const Column: React.FC<Props> = ({
   columnId,
   name,
-  list,
+  cards,
   memberName,
   addCard,
   deleteCard,
@@ -32,9 +32,9 @@ export const Column: React.FC<Props> = ({
         {name}
       </TextareaHead>
 
-      {(list !== undefined && list.length !== 0) &&
+      {(cards !== undefined && cards.length !== 0) &&
         <CardList>
-          {list.map(({id, name, description, comments}) => (
+          {cards.map(({id, name, description, comments}) => (
             <Card
               key={id}
               id={id}
@@ -106,7 +106,7 @@ const CardList = styled.div`
 interface Props {
   columnId: number,
   name: string,
-  list?: ICard[],
+  cards?: ICard[],
   memberName: string,
   addCard: (columnId: number, cardName: string) => void,
   deleteCard: (columnId: number, cardId: number) => void,

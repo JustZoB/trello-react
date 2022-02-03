@@ -1,7 +1,7 @@
 export interface IColumn {
   columnId: number,
   name: string,
-  list?: ICard[],
+  cards?: ICard[],
 }
 
 export interface ICard {
