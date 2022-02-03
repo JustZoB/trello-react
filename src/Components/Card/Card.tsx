@@ -3,7 +3,20 @@ import { IComment } from '../../interfaces';
 import { StyledCard } from '../StyledCard';
 import { CardModal } from './CardModal';
 
-export const Card: React.FC<CardProps> = ({id, columnId, colName, name, description, comments, deleteCard, changeDescriptionCard, addComment}) => {
+export const Card: React.FC<CardProps> = ({
+  id,
+  columnId,
+  colName,
+  name,
+  description,
+  comments,
+  memberName,
+  deleteCard,
+  changeDescriptionCard,
+  addComment,
+  editComment,
+  deleteComment
+}) => {
   const [modalActive, setModalActive] = useState<boolean>(false);
   const [cardName, setCardName] = useState<string>(name);
 
@@ -20,16 +33,19 @@ export const Card: React.FC<CardProps> = ({id, columnId, colName, name, descript
         <CardModal
           active={modalActive}
           setActive={setModalActive}
-          id={id}
+          cardId={id}
           columnId={columnId}
           colName={colName}
           name={cardName}
+          memberName={memberName}
           onChangeCardName={handleChange}
           description={description}
           comments={comments}
           deleteCard={deleteCard}
           changeDescriptionCard={changeDescriptionCard}
           addComment={addComment}
+          editComment={editComment}
+          deleteComment={deleteComment}
         />
       }
     </div>
@@ -43,7 +59,10 @@ interface CardProps {
   name: string,
   description?: string,
   comments?: IComment[],
+  memberName: string,
   deleteCard: (columnId: number, cardId: number) => void,
   changeDescriptionCard: (columnId: number, cardId: number, descriptionCard: string) => void,
   addComment: (columnId: number, cardId: number, commentText: string) => void,
+  editComment: (columnId: number, cardId: number, commentId: number, newCommentText: string) => void,
+  deleteComment: (columnId: number, cardId: number, commentId: number) => void,
 }

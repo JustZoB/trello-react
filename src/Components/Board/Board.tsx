@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { ICard, IColumn } from '../../interfaces';
+import { ICard, IColumn, IComment } from '../../interfaces';
 import { Column } from '../Column';
 import { GreetingsModal } from '../GreetingsModal';
 import data from './../../data.json'
@@ -29,7 +29,10 @@ export const Board: React.FC = () => {
     setList(mapped)
   }
 
-  const deleteCard = (columnId: number, cardId: number) => {
+  const deleteCard = (
+    columnId: number,
+    cardId: number
+  ) => {
     let mapped: IColumn[] = list.map((column: IColumn) => {
       if (column.columnId === columnId && column.list !== undefined) {
         let cardList: ICard[] = column.list?.filter((item : ICard) => item.id !== cardId)
@@ -97,6 +100,37 @@ export const Board: React.FC = () => {
     setList(mapped)
   }
 
+  const editComment = (
+    columnId: number,
+    cardId: number,
+    commentId: number,
+    newCommentText: string
+  ) => {
+    let mapped: IColumn[] = list.map((column: IColumn) => {
+      if (column.columnId === columnId) {
+        column.list?.map((item: ICard) => {
+          if (item.id === cardId) {
+            
+          }
+
+          return item
+        })
+      }
+
+      return column
+    })
+
+    setList(mapped)
+  }
+
+  const deleteComment = (
+    columnId: number,
+    cardId: number,
+    commentId: number
+  ) => {
+
+  }
+
   const handleSubmit = (name: string) => {
     setMemberName(name)
   }
@@ -115,6 +149,8 @@ export const Board: React.FC = () => {
             deleteCard={deleteCard}
             changeDescriptionCard={changeDescriptionCard}
             addComment={addComment}
+            editComment={editComment}
+            deleteComment={deleteComment}
           />
         ))}
       </ColumnList>

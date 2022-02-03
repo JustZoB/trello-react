@@ -14,16 +14,19 @@ import { IComment } from '../../../interfaces';
 export const CardModal: React.FC<CardModalProps> = ({
     active,
     setActive,
-    id,
+    cardId,
     columnId,
     colName,
     name,
     description,
     comments,
+    memberName,
     onChangeCardName,
     deleteCard,
     changeDescriptionCard,
-    addComment
+    addComment,
+    editComment,
+    deleteComment
   }) => {
   const [descriptionActive, setDescriptionActive] = useState<boolean>(false);
   const [newDescription, setNewDescription] = useState<string>(description !== undefined ? description : '');
@@ -67,7 +70,7 @@ export const CardModal: React.FC<CardModalProps> = ({
   }
 
   const handleClickSaveDescription = (e: React.MouseEvent<HTMLButtonElement>) => {
-    changeDescriptionCard(columnId, id, newDescription)
+    changeDescriptionCard(columnId, cardId, newDescription)
     setNewDescription(newDescription)
     setDescriptionActive(false)
   }
@@ -75,7 +78,7 @@ export const CardModal: React.FC<CardModalProps> = ({
   const handleKeywordSaveDescription = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      changeDescriptionCard(columnId, id, newDescription)
+      changeDescriptionCard(columnId, cardId, newDescription)
       setNewDescription(newDescription)
       setDescriptionActive(false)
     }
@@ -87,7 +90,7 @@ export const CardModal: React.FC<CardModalProps> = ({
   }
 
   const handleClickDeleteCard = (e: React.MouseEvent<HTMLButtonElement>) => {
-    deleteCard(columnId, id)
+    deleteCard(columnId, cardId)
     setDescriptionActive(false)
   }
 
@@ -96,14 +99,14 @@ export const CardModal: React.FC<CardModalProps> = ({
   }
 
   const handleClickAddComment = (e: React.MouseEvent<HTMLButtonElement>) => {
-    addComment(columnId, id, commentText);
+    addComment(columnId, cardId, commentText);
     setCommentText('')
   }
 
   const handleKeywordAddComment = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      addComment(columnId, id, commentText);
+      addComment(columnId, cardId, commentText);
       setCommentText('')
     }
   }
@@ -170,7 +173,14 @@ export const CardModal: React.FC<CardModalProps> = ({
           />
           <Button label='Post' onClick={handleClickAddComment} />
         </AddCommentWrapper>
-        <CommentsContent comments={comments} />
+        <CommentsContent
+          columnId={columnId}
+          cardId={cardId}
+          comments={comments}
+          memberName={memberName}
+          editComment={editComment}
+          deleteComment={deleteComment}
+        />
       </Comments>
 
       <Button label='Delete this card' onClick={handleClickDeleteCard} />
@@ -227,14 +237,17 @@ const AddCommentWrapper = styled.div`
 interface CardModalProps {
   active: boolean,
   setActive: React.Dispatch<React.SetStateAction<boolean>>,
-  id: number,
+  cardId: number,
   columnId: number,
   colName: string,
   name: string,
   description?: string,
   comments?: IComment[],
+  memberName: string,
   onChangeCardName: (cardName: string) => void,
   deleteCard: (columnId: number, cardId: number) => void,
   changeDescriptionCard: (columnId: number, cardId: number, descriptionCard: string) => void,
   addComment: (columnId: number, cardId: number, commentText: string) => void,
+  editComment: (columnId: number, cardId: number, commentId: number, newCommentText: string) => void,
+  deleteComment: (columnId: number, cardId: number, commentId: number) => void,
 }

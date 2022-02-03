@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { IComment } from '../../../interfaces';
+import { Comment } from './Comment'
 
-export const CommentsContent: React.FC<Props> = ({comments}) => {
+export const CommentsContent: React.FC<Props> = ({columnId, cardId, comments, memberName, editComment, deleteComment}) => {
   return (
     <>
     {(comments !== undefined && comments.length !== 0) &&
@@ -10,10 +11,16 @@ export const CommentsContent: React.FC<Props> = ({comments}) => {
         {comments.map(({id, member, content}) => (
           <StyledComment key={id}>
             <Avatar title={member}>{member.charAt(0).toUpperCase()}</Avatar>
-            <CommentContent>
-              <Member>{member}</Member>
-              <Comment>{content}</Comment>
-            </CommentContent>
+            <Comment
+              columnId={columnId}
+              cardId={cardId}
+              commentId={id}
+              commentMember={member}
+              commentText={content}
+              memberName={memberName}
+              editComment={editComment}
+              deleteComment={deleteComment}
+            />
             <p></p>
           </StyledComment>
         ))}
@@ -48,20 +55,11 @@ const Avatar = styled.div`
   cursor: default;
 `
 
-const CommentContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding-left: 10px;
-`
-
-const Member = styled.div`
-  font-weight: 600;
-`
-
-const Comment = styled.div`
-  display: flex;
-`
-
 interface Props {
+  columnId: number,
+  cardId: number,
   comments?: IComment[],
+  memberName: string,
+  editComment: (columnId: number, cardId: number, commentId: number, newCommentText: string) => void,
+  deleteComment: (columnId: number, cardId: number, commentId: number) => void,
 }

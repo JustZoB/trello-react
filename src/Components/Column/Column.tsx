@@ -5,7 +5,18 @@ import { AddCardButton } from './AddCardButton';
 import { TextareaHead } from '../Textarea';
 import { ICard } from '../../interfaces';
 
-export const Column: React.FC<Props> = ({columnId, name, list, addCard, deleteCard, changeDescriptionCard, addComment}) => {
+export const Column: React.FC<Props> = ({
+  columnId,
+  name,
+  list,
+  memberName,
+  addCard,
+  deleteCard,
+  changeDescriptionCard,
+  addComment,
+  editComment,
+  deleteComment
+}) => {
   const [columnName, setColumnName] = useState<string>(name);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -32,9 +43,12 @@ export const Column: React.FC<Props> = ({columnId, name, list, addCard, deleteCa
               description={description}
               comments={comments}
               colName={columnName}
+              memberName={memberName}
               deleteCard={deleteCard}
               changeDescriptionCard={changeDescriptionCard}
               addComment={addComment}
+              editComment={editComment}
+              deleteComment={deleteComment}
             />
           ))}
         </CardList>
@@ -98,4 +112,6 @@ interface Props {
   deleteCard: (columnId: number, cardId: number) => void,
   changeDescriptionCard: (columnId: number, cardId: number, descriptionCard: string) => void,
   addComment: (columnId: number, cardId: number, commentText: string) => void,
+  editComment: (columnId: number, cardId: number, commentId: number, newCommentText: string) => void,
+  deleteComment: (columnId: number, cardId: number, commentId: number) => void,
 }
