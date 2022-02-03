@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IComment } from '../../../App';
+import { IComment } from '../../../interfaces';
 
 export const CommentsContent: React.FC<Props> = ({comments}) => {
   return (

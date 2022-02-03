@@ -5,7 +5,7 @@ import { Button, ButtonsWrapper } from '../../Button/Button';
 import { CloseButton } from '../../CloseButton';
 import { Textarea } from '../../Textarea';
 
-export const AddCardButton: React.FC<AddCardButtonProps> = ({addCard}) => {
+export const AddCardButton: React.FC<AddCardButtonProps> = ({columnId, addCard}) => {
   const [cardAddingActive, setCardAddingActive] = useState<boolean>(false);
   const [newCardName, setNewCardName] = useState<string>('');
 
@@ -15,7 +15,7 @@ export const AddCardButton: React.FC<AddCardButtonProps> = ({addCard}) => {
 
   const handleClickAddCard = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (newCardName !== '') {
-      addCard(newCardName)
+      addCard(columnId, newCardName)
       setNewCardName('')
     }
   }
@@ -66,5 +66,6 @@ const AddingCardWrapper = styled.div`
 `
 
 interface AddCardButtonProps {
-  addCard: (name: string) => void,
+  columnId: number,
+  addCard: (columnId: number, name: string) => void,
 }

@@ -1,11 +1,81 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { IList } from '../../App';
+import { ICard, IColumn } from '../../interfaces';
 import { Column } from '../Column';
 import { GreetingsModal } from '../GreetingsModal';
+import data from './../../data.json'
 
-export const Board: React.FC<BoardProps> = ({list}) => {
+export const Board: React.FC = () => {
+  const [list, setList] = useState<IColumn[]>(data);
   const [memberName, setMemberName] = useState<string>('');
+
+  const addCard = (columnId: number, cardName: string) => {
+    const newCard = {
+      id: Number(Date.now()),
+      name: cardName
+    }
+
+    list.map((column: IColumn) => {
+      if (column.columnId === columnId) {
+        if (column.list === undefined) {
+          column.list = [newCard]
+        } else {
+          column.list = [...column.list, newCard]
+        }
+      }
+    })
+
+    // let mapped = list.map((column: IColumn) => {
+    //   if (column.columnId === columnId) {
+    //     return column.list === undefined ? column.list = [newCard] : column.list = [...column.list, newCard]
+    //   } else {
+    //     return list
+    //   }
+    // });
+    // setList(mapped);
+  }
+
+  const deleteCard = (columnId: number, cardId: number) => {
+    list.map((column: IColumn) => {
+      if (column.columnId === columnId) {
+        column = column.filter((item : ICard) => item.id !== cardId);
+      }
+    })
+  }
+
+  const changeDescriptionCard = (columnId: number, cardId: number, description: string) => {
+    list.map((column: IColumn) => {
+      if (column.columnId === columnId) {
+        column.map((item: ICard) => {
+          if (item.id === cardId) {
+            item.description = description
+          }
+        })
+      }
+    })
+  }
+
+  const addComment = (columnId: number, cardId: number, commentText: string) => {
+    const newComment = {
+      id: Number(Date.now()),
+      member: memberName,
+      content: commentText,
+    }
+
+    list.map((column: IColumn) => {
+      if (column.columnId === columnId) {
+        column.map((item: ICard) => {
+          if (item.id === cardId) {
+            if (item.comments === undefined) {
+              item.comments = [newComment]
+            } else {
+              item.comments = [...item.comments, newComment]
+            }
+          }
+        })
+      }
+    })
+  }
 
   const handleSubmit = (name: string) => {
     setMemberName(name)
@@ -14,13 +84,17 @@ export const Board: React.FC<BoardProps> = ({list}) => {
   return (
     <StyledBoard>
       <ColumnList>
-        {list.map(({id, name, list}) => (
+        {list.map(({columnId, name, list}) => (
           <Column
-            key={id}
-            id={id}
+            key={columnId}
+            columnId={columnId}
             name={name}
             list={list}
             memberName={memberName}
+            addCard={addCard}
+            deleteCard={deleteCard}
+            changeDescriptionCard={changeDescriptionCard}
+            addComment={addComment}
           />
         ))}
       </ColumnList>
@@ -59,7 +133,3 @@ const ColumnList = styled.div`
     border-radius: 10px;
   }
 `
-
-interface BoardProps {
-  list: IList[],
-}

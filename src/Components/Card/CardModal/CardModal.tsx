@@ -8,13 +8,14 @@ import { Textarea, TextareaHead } from '../../Textarea';
 import { Modal } from '../../Modal';
 import { AddDescriptionButton } from './AddDescriptionButton';
 import { DescriptionContent } from './DescriptionContent';
-import { IComment } from '../../../App';
 import { CommentsContent } from './CommentsContent';
+import { IComment } from '../../../interfaces';
 
 export const CardModal: React.FC<CardModalProps> = ({
     active,
     setActive,
     id,
+    columnId,
     colName,
     name,
     description,
@@ -66,7 +67,7 @@ export const CardModal: React.FC<CardModalProps> = ({
   }
 
   const handleClickSaveDescription = (e: React.MouseEvent<HTMLButtonElement>) => {
-    changeDescriptionCard(id, newDescription)
+    changeDescriptionCard(columnId, id, newDescription)
     setNewDescription(newDescription)
     setDescriptionActive(false)
   }
@@ -74,7 +75,7 @@ export const CardModal: React.FC<CardModalProps> = ({
   const handleKeywordSaveDescription = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      changeDescriptionCard(id, newDescription)
+      changeDescriptionCard(columnId, id, newDescription)
       setNewDescription(newDescription)
       setDescriptionActive(false)
     }
@@ -86,7 +87,7 @@ export const CardModal: React.FC<CardModalProps> = ({
   }
 
   const handleClickDeleteCard = (e: React.MouseEvent<HTMLButtonElement>) => {
-    deleteCard(id)
+    deleteCard(columnId, id)
     setDescriptionActive(false)
   }
 
@@ -95,14 +96,14 @@ export const CardModal: React.FC<CardModalProps> = ({
   }
 
   const handleClickAddComment = (e: React.MouseEvent<HTMLButtonElement>) => {
-    addComment(id, commentText);
+    addComment(columnId, id, commentText);
     setCommentText('')
   }
 
   const handleKeywordAddComment = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      addComment(id, commentText);
+      addComment(columnId, id, commentText);
       setCommentText('')
     }
   }
@@ -227,12 +228,13 @@ interface CardModalProps {
   active: boolean,
   setActive: React.Dispatch<React.SetStateAction<boolean>>,
   id: number,
+  columnId: number,
   colName: string,
   name: string,
   description?: string,
   comments?: IComment[],
-  onChangeCardName: (name: string) => void,
-  deleteCard: (id: number) => void,
-  changeDescriptionCard: (id: number, description: string) => void,
-  addComment: (id: number, commentText: string) => void,
+  onChangeCardName: (cardName: string) => void,
+  deleteCard: (columnId: number, cardId: number) => void,
+  changeDescriptionCard: (columnId: number, cardId: number, descriptionCard: string) => void,
+  addComment: (columnId: number, cardId: number, commentText: string) => void,
 }

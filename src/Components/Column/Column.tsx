@@ -3,54 +3,13 @@ import styled from 'styled-components';
 import { Card } from '../Card';
 import { AddCardButton } from './AddCardButton';
 import { TextareaHead } from '../Textarea';
-import { ICard } from '../../App';
+import { ICard } from '../../interfaces';
 
-export const Column: React.FC<Props> = ({name, list, memberName}) => {
+export const Column: React.FC<Props> = ({columnId, name, list, addCard, deleteCard, changeDescriptionCard, addComment}) => {
   const [columnName, setColumnName] = useState<string>(name);
-  const [columnList, setColumnList] = useState<ICard[]>(list !== undefined ? list : []);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setColumnName(e.target.value)
-  }
-
-  const addCard = (name: string) => {
-    const newCard = {
-      id: Number(Date.now()),
-      name: name
-    }
-
-    setColumnList([...columnList, newCard]);
-  }
-
-  const deleteCard = (itemId: number) => {
-    setColumnList(columnList.filter(item => item.id !== itemId))
-  }
-
-  const changeDescriptionCard = (itemId: number, description: string) => {
-    console.log('changed')
-    columnList.map((item: ICard) => {
-      if (item.id === itemId) {
-        item.description = description
-      }
-    })
-  }
-
-  const addComment = (itemId: number, commentText: string) => {
-    const newComment = {
-      id: Number(Date.now()),
-      member: memberName,
-      content: commentText,
-    }
-
-    columnList.map((item: ICard) => {
-      if (item.id === itemId) {
-        if (item.comments === undefined) {
-          item.comments = [newComment]
-        } else {
-          item.comments = [...item.comments, newComment]
-        }
-      }
-    })
   }
 
   return (
@@ -62,12 +21,13 @@ export const Column: React.FC<Props> = ({name, list, memberName}) => {
         {name}
       </TextareaHead>
 
-      {columnList.length !== 0 &&
+      {(list !== undefined && list.length !== 0) &&
         <CardList>
-          {columnList.map(({id, name, description, comments}) => (
+          {list.map(({id, name, description, comments}) => (
             <Card
               key={id}
               id={id}
+              columnId={columnId}
               name={name}
               description={description}
               comments={comments}
@@ -80,7 +40,7 @@ export const Column: React.FC<Props> = ({name, list, memberName}) => {
         </CardList>
       }
 
-      <AddCardButton addCard={addCard} />
+      <AddCardButton columnId={columnId} addCard={addCard} />
     </StyledColumn>
   );
 }
@@ -130,8 +90,12 @@ const CardList = styled.div`
 `
 
 interface Props {
-  id: number,
+  columnId: number,
   name: string,
   list?: ICard[],
   memberName: string,
+  addCard: (columnId: number, cardName: string) => void,
+  deleteCard: (columnId: number, cardId: number) => void,
+  changeDescriptionCard: (columnId: number, cardId: number, descriptionCard: string) => void,
+  addComment: (columnId: number, cardId: number, commentText: string) => void,
 }
