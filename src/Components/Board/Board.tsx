@@ -18,21 +18,29 @@ export const Board: React.FC = () => {
       name: cardName
     }
 
-    let mapped = list.map((column: IColumn) => {
+    let mapped: IColumn[] = list.map((column: IColumn) => {
       if (column.columnId === columnId) {
-        return column.list === undefined ? [newCard] : [...column.list, newCard]
+        return column.list === undefined ? { ...column, list: [newCard] } : { ...column, list: [...column.list, newCard] }
       }
+
+      return column
     })
 
-    console.log(mapped)
+    setList(mapped)
   }
 
   const deleteCard = (columnId: number, cardId: number) => {
-    list.map((column: IColumn) => {
-      if (column.columnId === columnId) {
-        column.list = column.list?.filter((item : ICard) => item.id !== cardId);
+    let mapped: IColumn[] = list.map((column: IColumn) => {
+      if (column.columnId === columnId && column.list !== undefined) {
+        let cardList: ICard[] = column.list?.filter((item : ICard) => item.id !== cardId)
+
+        return { ...column, list: cardList }
       }
+
+      return column
     })
+
+    setList(mapped)
   }
 
   const changeDescriptionCard = (
@@ -40,15 +48,21 @@ export const Board: React.FC = () => {
     cardId: number,
     description: string
   ) => {
-    list.map((column: IColumn) => {
+    let mapped: IColumn[] = list.map((column: IColumn) => {
       if (column.columnId === columnId) {
         column.list?.map((item: ICard) => {
           if (item.id === cardId) {
             item.description = description
           }
+
+          return item
         })
       }
+
+      return column
     })
+
+    setList(mapped)
   }
 
   const addComment = (
@@ -62,7 +76,7 @@ export const Board: React.FC = () => {
       content: commentText,
     }
 
-    list.map((column: IColumn) => {
+    let mapped: IColumn[] = list.map((column: IColumn) => {
       if (column.columnId === columnId) {
         column.list?.map((item: ICard) => {
           if (item.id === cardId) {
@@ -72,9 +86,15 @@ export const Board: React.FC = () => {
               item.comments = [...item.comments, newComment]
             }
           }
+
+          return item
         })
       }
+
+      return column
     })
+
+    setList(mapped)
   }
 
   const handleSubmit = (name: string) => {

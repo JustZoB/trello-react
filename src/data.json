@@ -47,9 +47,6 @@
   },
   {
     "columnId": 4,
-    "name": "Done",
-    "list": [
-      { "id": 1, "name": "Sleep" }
-    ]
+    "name": "Done"
   }
 ]
