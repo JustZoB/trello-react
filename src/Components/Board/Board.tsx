@@ -9,44 +9,40 @@ export const Board: React.FC = () => {
   const [list, setList] = useState<IColumn[]>(data);
   const [memberName, setMemberName] = useState<string>('');
 
-  const addCard = (columnId: number, cardName: string) => {
+  const addCard = (
+    columnId: number,
+    cardName: string
+  ) => {
     const newCard = {
       id: Number(Date.now()),
       name: cardName
     }
 
-    list.map((column: IColumn) => {
+    let mapped = list.map((column: IColumn) => {
       if (column.columnId === columnId) {
-        if (column.list === undefined) {
-          column.list = [newCard]
-        } else {
-          column.list = [...column.list, newCard]
-        }
+        return column.list === undefined ? [newCard] : [...column.list, newCard]
       }
     })
 
-    // let mapped = list.map((column: IColumn) => {
-    //   if (column.columnId === columnId) {
-    //     return column.list === undefined ? column.list = [newCard] : column.list = [...column.list, newCard]
-    //   } else {
-    //     return list
-    //   }
-    // });
-    // setList(mapped);
+    console.log(mapped)
   }
 
   const deleteCard = (columnId: number, cardId: number) => {
     list.map((column: IColumn) => {
       if (column.columnId === columnId) {
-        column = column.filter((item : ICard) => item.id !== cardId);
+        column.list = column.list?.filter((item : ICard) => item.id !== cardId);
       }
     })
   }
 
-  const changeDescriptionCard = (columnId: number, cardId: number, description: string) => {
+  const changeDescriptionCard = (
+    columnId: number,
+    cardId: number,
+    description: string
+  ) => {
     list.map((column: IColumn) => {
       if (column.columnId === columnId) {
-        column.map((item: ICard) => {
+        column.list?.map((item: ICard) => {
           if (item.id === cardId) {
             item.description = description
           }
@@ -55,7 +51,11 @@ export const Board: React.FC = () => {
     })
   }
 
-  const addComment = (columnId: number, cardId: number, commentText: string) => {
+  const addComment = (
+    columnId: number,
+    cardId: number,
+    commentText: string
+  ) => {
     const newComment = {
       id: Number(Date.now()),
       member: memberName,
@@ -64,7 +64,7 @@ export const Board: React.FC = () => {
 
     list.map((column: IColumn) => {
       if (column.columnId === columnId) {
-        column.map((item: ICard) => {
+        column.list?.map((item: ICard) => {
           if (item.id === cardId) {
             if (item.comments === undefined) {
               item.comments = [newComment]
