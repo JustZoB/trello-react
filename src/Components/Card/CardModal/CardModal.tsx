@@ -56,14 +56,6 @@ export const CardModal: React.FC<CardModalProps> = ({
     }
   }, [escapeCloseModal])
 
-  const handleChangeCardName = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    onChangeCardName(e.target.value)
-  }
-
-  const handleChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewDescription(e.target.value)
-  }
-
   const handleClickOpenAddingDescription = (e: React.MouseEvent<HTMLDivElement>) => {
     setOldDescription(newDescription)
     setDescriptionActive(true)
@@ -94,10 +86,6 @@ export const CardModal: React.FC<CardModalProps> = ({
     setDescriptionActive(false)
   }
 
-  const handleChangeComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setCommentText(e.target.value)
-  }
-
   const handleClickAddComment = (e: React.MouseEvent<HTMLButtonElement>) => {
     addComment(columnId, cardId, commentText);
     setCommentText('')
@@ -119,7 +107,7 @@ export const CardModal: React.FC<CardModalProps> = ({
       <Header>
         <TextareaHead
           value={name}
-          onChange={handleChangeCardName}
+          onChange={e => onChangeCardName(e.target.value)}
         >
           {name}
         </TextareaHead>
@@ -148,7 +136,7 @@ export const CardModal: React.FC<CardModalProps> = ({
             <Textarea
               placeholder='Add description...'
               value={newDescription}
-              onChange={handleChangeDescription}
+              onChange={e => setNewDescription(e.target.value)}
               onKeyPress={handleKeywordSaveDescription}
               autoFocus={true}
               onFocus={e => e.currentTarget.select()}
@@ -168,7 +156,7 @@ export const CardModal: React.FC<CardModalProps> = ({
           <Textarea
             placeholder='Write comment...'
             value={commentText}
-            onChange={handleChangeComment}
+            onChange={e => setCommentText(e.target.value)}
             onKeyPress={handleKeywordAddComment}
           />
           <Button label='Post' onClick={handleClickAddComment} />
@@ -183,8 +171,9 @@ export const CardModal: React.FC<CardModalProps> = ({
         />
       </Comments>
 
-      <Button label='Delete this card' onClick={handleClickDeleteCard} />
-
+      <DeleteCardButtonWrapper>
+        <Button label='Delete this card' onClick={handleClickDeleteCard} />
+      </DeleteCardButtonWrapper>
       <CloseModalButton onClick={handleClickCloseModal} />
     </Modal>
   );
@@ -232,6 +221,13 @@ const AddCommentWrapper = styled.div`
     width: fit-content;
     margin-left: 10px;
   }
+`
+
+const DeleteCardButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  margin-right: 3px;
 `
 
 interface CardModalProps {

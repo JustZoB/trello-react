@@ -16,6 +16,20 @@ const StyledModalContent = styled.div<ModalContentProps>`
   background-color: white;
   cursor: auto;
   border-radius: 2px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    padding: 2px;
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+  }
 `
 
 interface ModalContentProps {

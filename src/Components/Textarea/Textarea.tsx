@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import styled from 'styled-components';
 
 export const Textarea: React.FC<Props> = ({placeholder, value, onChange, onKeyPress, autoFocus, onFocus}) => {
@@ -14,7 +14,7 @@ export const Textarea: React.FC<Props> = ({placeholder, value, onChange, onKeyPr
   );
 }
 
-export const TextareaHead: React.FC<Props> = ({placeholder, value, onChange, onKeyPress, autoFocus, onFocus}) => {
+export const TextareaHead: React.FC<Props> = ({placeholder, value, onChange, onKeyPress, autoFocus, onFocus, ref}) => {
   return (
     <StyledTextareaHead
       placeholder={placeholder}
@@ -23,6 +23,7 @@ export const TextareaHead: React.FC<Props> = ({placeholder, value, onChange, onK
       onKeyPress={onKeyPress}
       autoFocus={autoFocus}
       onFocus={onFocus}
+      ref={ref}
     />
   );
 }
@@ -60,4 +61,5 @@ interface Props {
   onKeyPress?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void,
   autoFocus?: boolean,
   onFocus?: (e: React.FocusEvent<HTMLTextAreaElement>) => void,
+  ref?: RefObject<HTMLTextAreaElement>,
 }

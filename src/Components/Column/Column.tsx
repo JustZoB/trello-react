@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Card } from '../Card';
 import { AddCardButton } from './AddCardButton';
@@ -18,16 +18,25 @@ export const Column: React.FC<Props> = ({
   deleteComment
 }) => {
   const [columnName, setColumnName] = useState<string>(name);
+  const columnNameRef = useRef<HTMLTextAreaElement>(null)
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setColumnName(e.target.value)
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
   }
+
+  useEffect(() => {
+    console.log(columnNameRef)
+  })
 
   return (
     <StyledColumn>
       <TextareaHead
         value={columnName}
-        onChange={handleChange}
+        onChange={e => setColumnName(e.target.value)}
+        onKeyPress={handleKeyPress}
+        ref={columnNameRef}
       >
         {name}
       </TextareaHead>

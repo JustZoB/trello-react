@@ -9,10 +9,6 @@ export const AddCardButton: React.FC<AddCardButtonProps> = ({columnId, addCard})
   const [cardAddingActive, setCardAddingActive] = useState<boolean>(false);
   const [newCardName, setNewCardName] = useState<string>('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewCardName(e.target.value)
-  }
-
   const handleClickAddCard = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (newCardName !== '') {
       addCard(columnId, newCardName)
@@ -41,7 +37,7 @@ export const AddCardButton: React.FC<AddCardButtonProps> = ({columnId, addCard})
           <Textarea
             placeholder='Name your card'
             value={newCardName}
-            onChange={handleChange}
+            onChange={e => setNewCardName(e.target.value)}
             autoFocus={true}
           />
           <ButtonsWrapper>

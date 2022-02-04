@@ -152,8 +152,6 @@ export const Board: React.FC = () => {
       return column
     })
 
-    console.log(mapped)
-
     setColumnsList(mapped)
   }
 

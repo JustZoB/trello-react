@@ -9,10 +9,6 @@ export const Comment: React.FC<Props> = ({columnId, cardId, commentId, commentTe
   const [newCommentText, setNewCommentText] = useState<string>(commentText !== undefined ? commentText : '');
   const [oldCommentText, setOldCommentText] = useState<string>(commentText !== undefined ? commentText : '');
 
-  const handleChangeComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewCommentText(e.target.value)
-  }
-
   const handleClickEditComment = (e: React.MouseEvent<HTMLButtonElement>) => {
     setOldCommentText(newCommentText)
     setEditingCommentActive(true)
@@ -59,7 +55,7 @@ export const Comment: React.FC<Props> = ({columnId, cardId, commentId, commentTe
           <Textarea
             placeholder='Write comment...'
             value={newCommentText}
-            onChange={handleChangeComment}
+            onChange={e => setNewCommentText(e.target.value)}
             onKeyPress={handleKeywordSaveEditingComment}
             autoFocus={true}
             onFocus={e => e.currentTarget.select()}
