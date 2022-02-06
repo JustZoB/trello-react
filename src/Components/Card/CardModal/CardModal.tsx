@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { Button, ButtonsWrapper } from '../../Button/Button';
@@ -32,6 +32,7 @@ export const CardModal: React.FC<CardModalProps> = ({
   const [newDescription, setNewDescription] = useState<string>(description !== undefined ? description : '');
   const [oldDescription, setOldDescription] = useState<string>(description !== undefined ? description : '');
   const [commentText, setCommentText] = useState<string>('');
+  const cardNameRef = useRef<HTMLTextAreaElement>(null)
 
   const handleClickCloseModal = (e: React.MouseEvent<HTMLDivElement>) => {
     setNewDescription(oldDescription)
@@ -99,6 +100,13 @@ export const CardModal: React.FC<CardModalProps> = ({
     }
   }
 
+  const handleKeyPressBlurCardName = (e: React.KeyboardEvent<HTMLTextAreaElement | null>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      cardNameRef.current?.blur()
+    }
+  }
+
   return (
     <Modal
       $isActive={active}
@@ -108,6 +116,8 @@ export const CardModal: React.FC<CardModalProps> = ({
         <TextareaHead
           value={name}
           onChange={e => onChangeCardName(e.target.value)}
+          onKeyPress={handleKeyPressBlurCardName}
+          someRef={cardNameRef}
         >
           {name}
         </TextareaHead>
