@@ -1,17 +1,17 @@
-export interface IColumn {
+export type ColumnType = {
   columnId: number,
   name: string,
-  cards?: ICard[],
+  cards?: CardType[],
 }
 
-export interface ICard {
+export type CardType = {
   id: number,
   name: string,
   description?: string,
-  comments?: IComment[],
+  comments?: CommentType[],
 }
 
-export interface IComment {
+export type CommentType = {
   id: number,
   author: string,
   content: string,

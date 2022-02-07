@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Card } from '../Card';
 import { AddCardButton } from './AddCardButton';
 import { TextareaHead } from '../Textarea';
-import { ICard } from '../../interfaces';
+import { CardType } from '../../interfaces';
 
 export const Column: React.FC<Props> = ({
   columnId,
@@ -33,7 +33,7 @@ export const Column: React.FC<Props> = ({
         value={columnName}
         onChange={e => setColumnName(e.target.value)}
         onKeyPress={handleKeyPressBlurColumnName}
-        thisRef={columnNameRef}
+        textareaRef={columnNameRef}
       >
         {name}
       </TextareaHead>
@@ -112,7 +112,7 @@ const CardList = styled.div`
 interface Props {
   columnId: number,
   name: string,
-  cards?: ICard[],
+  cards?: CardType[],
   userName: string,
   addCard: (columnId: number, cardName: string) => void,
   deleteCard: (columnId: number, cardId: number) => void,

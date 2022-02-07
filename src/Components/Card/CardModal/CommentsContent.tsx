@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IComment } from '../../../interfaces';
+import { CommentType } from '../../../interfaces';
 import { Comment } from './Comment'
 
 export const CommentsContent: React.FC<Props> = ({columnId, cardId, comments, userName, editComment, deleteComment}) => {
@@ -21,7 +21,6 @@ export const CommentsContent: React.FC<Props> = ({columnId, cardId, comments, us
               editComment={editComment}
               deleteComment={deleteComment}
             />
-            <p></p>
           </StyledComment>
         ))}
       </StyledCommentsContent>
@@ -58,7 +57,7 @@ const Avatar = styled.div`
 interface Props {
   columnId: number,
   cardId: number,
-  comments?: IComment[],
+  comments?: CommentType[],
   userName: string,
   editComment: (columnId: number, cardId: number, commentId: number, newCommentText: string) => void,
   deleteComment: (columnId: number, cardId: number, commentId: number) => void,

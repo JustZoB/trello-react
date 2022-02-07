@@ -9,7 +9,7 @@ import { Modal } from '../../Modal';
 import { AddDescriptionButton } from './AddDescriptionButton';
 import { DescriptionContent } from './DescriptionContent';
 import { CommentsContent } from './CommentsContent';
-import { IComment } from '../../../interfaces';
+import { CommentType } from '../../../interfaces';
 
 export const CardModal: React.FC<CardModalProps> = ({
     active,
@@ -34,35 +34,33 @@ export const CardModal: React.FC<CardModalProps> = ({
   const [commentText, setCommentText] = useState<string>('');
   const cardNameRef = useRef<HTMLTextAreaElement>(null)
 
-  const handleClickCloseModal = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleClickCloseModal = () => {
     setNewDescription(oldDescription)
     setDescriptionActive(false)
     setActive(false)
   }
 
-  const escapeCloseModal = useCallback((e: KeyboardEvent) => {
+  const handleKeyPressEscapeCloseModal = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') {
       e.preventDefault();
-      setNewDescription(oldDescription)
-      setDescriptionActive(false)
-      setActive(false)
+      handleClickCloseModal()
     }
-  }, [oldDescription, setActive]);
+  }, []);
 
   useEffect(() => {
-    window.addEventListener("keydown", escapeCloseModal);
+    window.addEventListener("keydown", handleKeyPressEscapeCloseModal);
 
     return () => {
-      window.removeEventListener("keydown", escapeCloseModal);
+      window.removeEventListener("keydown", handleKeyPressEscapeCloseModal);
     }
-  }, [escapeCloseModal])
+  }, [handleKeyPressEscapeCloseModal])
 
-  const handleClickOpenAddingDescription = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleClickOpenAddingDescription = () => {
     setOldDescription(newDescription)
     setDescriptionActive(true)
   }
 
-  const handleClickSaveDescription = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickSaveDescription = () => {
     changeDescriptionCard(columnId, cardId, newDescription)
     setNewDescription(newDescription)
     setDescriptionActive(false)
@@ -77,17 +75,17 @@ export const CardModal: React.FC<CardModalProps> = ({
     }
   }
 
-  const handleClickDontSaveDescription = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleClickDontSaveDescription = () => {
     setNewDescription(oldDescription)
     setDescriptionActive(false)
   }
 
-  const handleClickDeleteCard = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickDeleteCard = () => {
     deleteCard(columnId, cardId)
     setDescriptionActive(false)
   }
 
-  const handleClickAddComment = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickAddComment = () => {
     addComment(columnId, cardId, commentText);
     setCommentText('')
   }
@@ -117,7 +115,7 @@ export const CardModal: React.FC<CardModalProps> = ({
           value={name}
           onChange={e => onChangeCardName(e.target.value)}
           onKeyPress={handleKeyPressBlurCardName}
-          thisRef={cardNameRef}
+          textareaRef={cardNameRef}
         >
           {name}
         </TextareaHead>
@@ -127,14 +125,14 @@ export const CardModal: React.FC<CardModalProps> = ({
       <Description>
         <h4>Description</h4>
 
-        {(newDescription !== '' && newDescription !== undefined) && !descriptionActive &&
+        {newDescription && !descriptionActive &&
           <DescriptionContent
             description={newDescription}
             onClick={handleClickOpenAddingDescription}
           />
         }
 
-        {(newDescription === '' || newDescription === undefined) && !descriptionActive &&
+        {!newDescription && !descriptionActive &&
           <AddDescriptionButton
             description={newDescription}
             onClick={handleClickOpenAddingDescription}
@@ -248,7 +246,7 @@ interface CardModalProps {
   colName: string,
   name: string,
   description?: string,
-  comments?: IComment[],
+  comments?: CommentType[],
   userName: string,
   onChangeCardName: (cardName: string) => void,
   deleteCard: (columnId: number, cardId: number) => void,

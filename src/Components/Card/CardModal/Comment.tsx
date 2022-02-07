@@ -9,12 +9,12 @@ export const Comment: React.FC<Props> = ({columnId, cardId, commentId, commentTe
   const [newCommentText, setNewCommentText] = useState<string>(commentText !== undefined ? commentText : '');
   const [oldCommentText, setOldCommentText] = useState<string>(commentText !== undefined ? commentText : '');
 
-  const handleClickEditComment = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickEditComment = () => {
     setOldCommentText(newCommentText)
     setEditingCommentActive(true)
   }
 
-  const handleClickSaveEditingComment = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickSaveEditingComment = () => {
     editComment(columnId, cardId, commentId, newCommentText)
     setNewCommentText(newCommentText)
     setEditingCommentActive(false)
@@ -29,12 +29,12 @@ export const Comment: React.FC<Props> = ({columnId, cardId, commentId, commentTe
     }
   }
 
-  const handleClickDontSaveDescription = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleClickDontSaveDescription = () => {
     setNewCommentText(oldCommentText)
     setEditingCommentActive(false)
   }
 
-  const handleClickDeleteComment = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickDeleteComment = () => {
     deleteComment(columnId, cardId, commentId)
   }
 

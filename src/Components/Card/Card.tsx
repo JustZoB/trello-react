@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IComment } from '../../interfaces';
+import { CommentType } from '../../interfaces';
 import { StyledCard } from '../StyledCard';
 import { CardModal } from './CardModal';
 
@@ -58,7 +58,7 @@ interface CardProps {
   columnId: number,
   name: string,
   description?: string,
-  comments?: IComment[],
+  comments?: CommentType[],
   userName: string,
   deleteCard: (columnId: number, cardId: number) => void,
   changeDescriptionCard: (columnId: number, cardId: number, descriptionCard: string) => void,

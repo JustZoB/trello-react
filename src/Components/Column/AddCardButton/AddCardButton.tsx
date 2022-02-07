@@ -9,14 +9,14 @@ export const AddCardButton: React.FC<AddCardButtonProps> = ({columnId, addCard})
   const [cardAddingActive, setCardAddingActive] = useState<boolean>(false);
   const [newCardName, setNewCardName] = useState<string>('');
 
-  const handleClickAddCard = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickAddCard = () => {
     if (newCardName !== '') {
       addCard(columnId, newCardName)
       setNewCardName('')
     }
   }
 
-  const handleClickCloseAdding = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleClickCloseAdding = () => {
     setCardAddingActive(false)
     setNewCardName('')
   }

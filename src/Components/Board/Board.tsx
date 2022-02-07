@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { ICard, IColumn, IComment } from '../../interfaces';
+import { CardType, ColumnType, CommentType } from '../../interfaces';
 import { Column } from '../Column';
 import { GreetingsModal } from '../GreetingsModal';
 import data from './../../data.json'
 
 export const Board: React.FC = () => {
-  const [dataList, setDataList] = useState<IColumn[]>(data);
+  const [dataList, setDataList] = useState<ColumnType[]>(data);
   const [userName, setUserName] = useState<string>('');
 
   const addCard = (
@@ -18,7 +18,7 @@ export const Board: React.FC = () => {
       name: cardName
     }
 
-    const newDataList: IColumn[] = dataList.map((column: IColumn) => {
+    const newDataList: ColumnType[] = dataList.map((column: ColumnType) => {
       if (column.columnId === columnId) {
         return column.cards === undefined ? { ...column, cards: [newCard] } : { ...column, cards: [...column.cards, newCard] }
       }
@@ -33,9 +33,9 @@ export const Board: React.FC = () => {
     columnId: number,
     cardId: number
   ) => {
-    const newDataList: IColumn[] = dataList.map((column: IColumn) => {
+    const newDataList: ColumnType[] = dataList.map((column: ColumnType) => {
       if (column.columnId === columnId && column.cards !== undefined) {
-        let cardList: ICard[] = column.cards?.filter((item : ICard) => item.id !== cardId)
+        let cardList: CardType[] = column.cards?.filter((item : CardType) => item.id !== cardId)
 
         return { ...column, cards: cardList }
       }
@@ -51,9 +51,9 @@ export const Board: React.FC = () => {
     cardId: number,
     description: string
   ) => {
-    const newDataList: IColumn[] = dataList.map((column: IColumn) => {
+    const newDataList: ColumnType[] = dataList.map((column: ColumnType) => {
       if (column.columnId === columnId) {
-        column.cards?.map((item: ICard) => {
+        column.cards?.map((item: CardType) => {
           if (item.id === cardId) {
             item.description = description
           }
@@ -79,9 +79,9 @@ export const Board: React.FC = () => {
       content: commentText,
     }
 
-    const newDataList: IColumn[] = dataList.map((column: IColumn) => {
+    const newDataList: ColumnType[] = dataList.map((column: ColumnType) => {
       if (column.columnId === columnId) {
-        column.cards?.map((item: ICard) => {
+        column.cards?.map((item: CardType) => {
           if (item.id === cardId) {
             if (item.comments === undefined) {
               item.comments = [newComment]
@@ -106,11 +106,11 @@ export const Board: React.FC = () => {
     commentId: number,
     newCommentContent: string
   ) => {
-    const newDataList: IColumn[] = dataList.map((column: IColumn) => {
+    const newDataList: ColumnType[] = dataList.map((column: ColumnType) => {
       if (column.columnId === columnId) {
-        column.cards?.map((card: ICard) => {
+        column.cards?.map((card: CardType) => {
           if (card.id === cardId) {
-            card.comments?.map((comment: IComment) => {
+            card.comments?.map((comment: CommentType) => {
               if (comment.id === commentId) {
                 comment.content = newCommentContent
               }
@@ -134,11 +134,11 @@ export const Board: React.FC = () => {
     cardId: number,
     commentId: number
   ) => {
-    const newDataList: IColumn[] = dataList.map((column: IColumn) => {
+    const newDataList: ColumnType[] = dataList.map((column: ColumnType) => {
       if (column.columnId === columnId && column.cards !== undefined) {
-        let cardMap: ICard[] = column.cards?.map((card: ICard) => {
+        let cardMap: CardType[] = column.cards?.map((card: CardType) => {
           if (card.id === cardId && card.comments !== undefined) {
-            let commentList: IComment[] = card.comments?.filter((comment : IComment) => comment.id !== commentId)
+            let commentList: CommentType[] = card.comments?.filter((comment : CommentType) => comment.id !== commentId)
 
             return { ...card, comments: commentList }
           }

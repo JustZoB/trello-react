@@ -1,16 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const TextInput: React.FC<Props> = ({name, type, placeholder, value, onChange, onKeyPress, autoFocus}) => {
+export const TextInput: React.FC<Props> = (props) => {
   return (
     <StyledTextInput
-      name={name}
-      type={type}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      onKeyPress={onKeyPress}
-      autoFocus={autoFocus}
+      {...props}
     />
   );
 }
