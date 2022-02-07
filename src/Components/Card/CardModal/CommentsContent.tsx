@@ -6,7 +6,7 @@ import { Comment } from './Comment'
 export const CommentsContent: React.FC<Props> = ({columnId, cardId, comments, userName, editComment, deleteComment}) => {
   return (
     <>
-    {(comments !== undefined && comments.length !== 0) &&
+    {comments &&
       <StyledCommentsContent>
         {comments.map(({id, author, content}) => (
           <StyledComment key={id}>

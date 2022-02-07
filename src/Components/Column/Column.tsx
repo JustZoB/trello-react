@@ -38,7 +38,7 @@ export const Column: React.FC<Props> = ({
         {name}
       </TextareaHead>
 
-      {(cards !== undefined && cards.length !== 0) &&
+      {cards &&
         <CardList>
           {cards.map(({id, name, description, comments}) => (
             <Card
