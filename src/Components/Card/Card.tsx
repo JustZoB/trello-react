@@ -10,7 +10,7 @@ export const Card: React.FC<CardProps> = ({
   name,
   description,
   comments,
-  memberName,
+  userName,
   deleteCard,
   changeDescriptionCard,
   addComment,
@@ -37,7 +37,7 @@ export const Card: React.FC<CardProps> = ({
           columnId={columnId}
           colName={colName}
           name={cardName}
-          memberName={memberName}
+          userName={userName}
           onChangeCardName={handleChange}
           description={description}
           comments={comments}
@@ -59,7 +59,7 @@ interface CardProps {
   name: string,
   description?: string,
   comments?: IComment[],
-  memberName: string,
+  userName: string,
   deleteCard: (columnId: number, cardId: number) => void,
   changeDescriptionCard: (columnId: number, cardId: number, descriptionCard: string) => void,
   addComment: (columnId: number, cardId: number, commentText: string) => void,

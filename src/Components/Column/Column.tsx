@@ -9,7 +9,7 @@ export const Column: React.FC<Props> = ({
   columnId,
   name,
   cards,
-  memberName,
+  userName,
   addCard,
   deleteCard,
   changeDescriptionCard,
@@ -33,7 +33,7 @@ export const Column: React.FC<Props> = ({
         value={columnName}
         onChange={e => setColumnName(e.target.value)}
         onKeyPress={handleKeyPressBlurColumnName}
-        someRef={columnNameRef}
+        thisRef={columnNameRef}
       >
         {name}
       </TextareaHead>
@@ -49,7 +49,7 @@ export const Column: React.FC<Props> = ({
               description={description}
               comments={comments}
               colName={columnName}
-              memberName={memberName}
+              userName={userName}
               deleteCard={deleteCard}
               changeDescriptionCard={changeDescriptionCard}
               addComment={addComment}
@@ -113,7 +113,7 @@ interface Props {
   columnId: number,
   name: string,
   cards?: ICard[],
-  memberName: string,
+  userName: string,
   addCard: (columnId: number, cardName: string) => void,
   deleteCard: (columnId: number, cardId: number) => void,
   changeDescriptionCard: (columnId: number, cardId: number, descriptionCard: string) => void,

@@ -4,7 +4,7 @@ import { Button, ButtonsWrapper } from '../../Button';
 import { CloseButton } from '../../CloseButton';
 import { Textarea } from '../../Textarea';
 
-export const Comment: React.FC<Props> = ({columnId, cardId, commentId, commentText, commentMember, memberName, editComment, deleteComment}) => {
+export const Comment: React.FC<Props> = ({columnId, cardId, commentId, commentText, commentAuthor, userName, editComment, deleteComment}) => {
   const [editingCommentActive, setEditingCommentActive] = useState<boolean>(false);
   const [newCommentText, setNewCommentText] = useState<string>(commentText !== undefined ? commentText : '');
   const [oldCommentText, setOldCommentText] = useState<string>(commentText !== undefined ? commentText : '');
@@ -40,11 +40,11 @@ export const Comment: React.FC<Props> = ({columnId, cardId, commentId, commentTe
 
   return (
     <CommentContent>
-      <Member>{commentMember}</Member>
+      <User>{commentAuthor}</User>
       {!editingCommentActive &&
         <CommentText>{commentText}</CommentText>
       }
-      {memberName === commentMember && !editingCommentActive &&
+      {userName === commentAuthor && !editingCommentActive &&
         <ButtonsWrapper>
           <Button size='small' label='Edit' onClick={handleClickEditComment} />
           <Button size='small' label='Delete' onClick={handleClickDeleteComment} />
@@ -76,7 +76,7 @@ const CommentContent = styled.div`
   padding-left: 10px;
 `
 
-const Member = styled.div`
+const User = styled.div`
   font-weight: 600;
   margin-bottom: 2px;
 `
@@ -91,8 +91,8 @@ interface Props {
   cardId: number,
   commentId: number,
   commentText: string,
-  commentMember: string,
-  memberName: string,
+  commentAuthor: string,
+  userName: string,
   editComment: (columnId: number, cardId: number, commentId: number, newCommentText: string) => void,
   deleteComment: (columnId: number, cardId: number, commentId: number) => void,
 }

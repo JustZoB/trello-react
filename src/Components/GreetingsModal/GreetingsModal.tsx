@@ -7,11 +7,10 @@ import { Form } from '../Form/Form';
 
 export const GreetingsModal: React.FC<Props> = ({onSubmit}) => {
   const [modalActive, setModalActive] = useState<boolean>(true);
-  const [name, setName] = useState<string>('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(e.currentTarget.memberName.value)
+    onSubmit(e.currentTarget.userName.value)
     setModalActive(false)
   }
 
@@ -28,11 +27,9 @@ export const GreetingsModal: React.FC<Props> = ({onSubmit}) => {
       <h4>Hello and welcome to trello clone, enter you name:</h4>
       <Form onSubmit={handleSubmit}>
         <TextInput
-          name='memberName'
+          name='userName'
           type='text'
           placeholder='Enter your name...'
-          value={name}
-          onChange={(e: React.FormEvent<HTMLInputElement>) => setName(e.currentTarget.value)}
           onKeyPress={handleKeywordEnter}
           autoFocus={true}
         />

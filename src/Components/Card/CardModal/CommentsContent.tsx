@@ -3,21 +3,21 @@ import styled from 'styled-components';
 import { IComment } from '../../../interfaces';
 import { Comment } from './Comment'
 
-export const CommentsContent: React.FC<Props> = ({columnId, cardId, comments, memberName, editComment, deleteComment}) => {
+export const CommentsContent: React.FC<Props> = ({columnId, cardId, comments, userName, editComment, deleteComment}) => {
   return (
     <>
     {(comments !== undefined && comments.length !== 0) &&
       <StyledCommentsContent>
-        {comments.map(({id, member, content}) => (
+        {comments.map(({id, author, content}) => (
           <StyledComment key={id}>
-            <Avatar title={member}>{member.charAt(0).toUpperCase()}</Avatar>
+            <Avatar title={author}>{author.charAt(0).toUpperCase()}</Avatar>
             <Comment
               columnId={columnId}
               cardId={cardId}
               commentId={id}
-              commentMember={member}
+              commentAuthor={author}
               commentText={content}
-              memberName={memberName}
+              userName={userName}
               editComment={editComment}
               deleteComment={deleteComment}
             />
@@ -59,7 +59,7 @@ interface Props {
   columnId: number,
   cardId: number,
   comments?: IComment[],
-  memberName: string,
+  userName: string,
   editComment: (columnId: number, cardId: number, commentId: number, newCommentText: string) => void,
   deleteComment: (columnId: number, cardId: number, commentId: number) => void,
 }

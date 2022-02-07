@@ -13,6 +13,6 @@ export interface ICard {
 
 export interface IComment {
   id: number,
-  member: string,
+  author: string,
   content: string,
 }

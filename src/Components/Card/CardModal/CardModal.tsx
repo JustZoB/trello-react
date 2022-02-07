@@ -20,7 +20,7 @@ export const CardModal: React.FC<CardModalProps> = ({
     name,
     description,
     comments,
-    memberName,
+    userName,
     onChangeCardName,
     deleteCard,
     changeDescriptionCard,
@@ -117,7 +117,7 @@ export const CardModal: React.FC<CardModalProps> = ({
           value={name}
           onChange={e => onChangeCardName(e.target.value)}
           onKeyPress={handleKeyPressBlurCardName}
-          someRef={cardNameRef}
+          thisRef={cardNameRef}
         >
           {name}
         </TextareaHead>
@@ -175,7 +175,7 @@ export const CardModal: React.FC<CardModalProps> = ({
           columnId={columnId}
           cardId={cardId}
           comments={comments}
-          memberName={memberName}
+          userName={userName}
           editComment={editComment}
           deleteComment={deleteComment}
         />
@@ -249,7 +249,7 @@ interface CardModalProps {
   name: string,
   description?: string,
   comments?: IComment[],
-  memberName: string,
+  userName: string,
   onChangeCardName: (cardName: string) => void,
   deleteCard: (columnId: number, cardId: number) => void,
   changeDescriptionCard: (columnId: number, cardId: number, descriptionCard: string) => void,

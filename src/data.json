@@ -38,7 +38,7 @@
         "comments": [
           {
             "id": 1,
-            "member": "Testing Guy",
+            "author": "Testing Guy",
             "content": "This is bullshit"
           }
         ]

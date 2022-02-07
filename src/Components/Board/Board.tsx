@@ -6,8 +6,8 @@ import { GreetingsModal } from '../GreetingsModal';
 import data from './../../data.json'
 
 export const Board: React.FC = () => {
-  const [columnsList, setColumnsList] = useState<IColumn[]>(data);
-  const [memberName, setMemberName] = useState<string>('');
+  const [dataList, setDataList] = useState<IColumn[]>(data);
+  const [userName, setUserName] = useState<string>('');
 
   const addCard = (
     columnId: number,
@@ -18,7 +18,7 @@ export const Board: React.FC = () => {
       name: cardName
     }
 
-    let mapped: IColumn[] = columnsList.map((column: IColumn) => {
+    const newDataList: IColumn[] = dataList.map((column: IColumn) => {
       if (column.columnId === columnId) {
         return column.cards === undefined ? { ...column, cards: [newCard] } : { ...column, cards: [...column.cards, newCard] }
       }
@@ -26,14 +26,14 @@ export const Board: React.FC = () => {
       return column
     })
 
-    setColumnsList(mapped)
+    setDataList(newDataList)
   }
 
   const deleteCard = (
     columnId: number,
     cardId: number
   ) => {
-    let mapped: IColumn[] = columnsList.map((column: IColumn) => {
+    const newDataList: IColumn[] = dataList.map((column: IColumn) => {
       if (column.columnId === columnId && column.cards !== undefined) {
         let cardList: ICard[] = column.cards?.filter((item : ICard) => item.id !== cardId)
 
@@ -43,15 +43,15 @@ export const Board: React.FC = () => {
       return column
     })
 
-    setColumnsList(mapped)
+    setDataList(newDataList)
   }
 
-  const changeDescriptionCard = (
+  const changeCardDescription = (
     columnId: number,
     cardId: number,
     description: string
   ) => {
-    let mapped: IColumn[] = columnsList.map((column: IColumn) => {
+    const newDataList: IColumn[] = dataList.map((column: IColumn) => {
       if (column.columnId === columnId) {
         column.cards?.map((item: ICard) => {
           if (item.id === cardId) {
@@ -65,7 +65,7 @@ export const Board: React.FC = () => {
       return column
     })
 
-    setColumnsList(mapped)
+    setDataList(newDataList)
   }
 
   const addComment = (
@@ -75,11 +75,11 @@ export const Board: React.FC = () => {
   ) => {
     const newComment = {
       id: Number(Date.now()),
-      member: memberName,
+      author: userName,
       content: commentText,
     }
 
-    let mapped: IColumn[] = columnsList.map((column: IColumn) => {
+    const newDataList: IColumn[] = dataList.map((column: IColumn) => {
       if (column.columnId === columnId) {
         column.cards?.map((item: ICard) => {
           if (item.id === cardId) {
@@ -97,22 +97,22 @@ export const Board: React.FC = () => {
       return column
     })
 
-    setColumnsList(mapped)
+    setDataList(newDataList)
   }
 
   const editComment = (
     columnId: number,
     cardId: number,
     commentId: number,
-    newCommentText: string
+    newCommentContent: string
   ) => {
-    let mapped: IColumn[] = columnsList.map((column: IColumn) => {
+    const newDataList: IColumn[] = dataList.map((column: IColumn) => {
       if (column.columnId === columnId) {
         column.cards?.map((card: ICard) => {
           if (card.id === cardId) {
             card.comments?.map((comment: IComment) => {
               if (comment.id === commentId) {
-                comment.content = newCommentText
+                comment.content = newCommentContent
               }
 
               return comment
@@ -126,7 +126,7 @@ export const Board: React.FC = () => {
       return column
     })
 
-    setColumnsList(mapped)
+    setDataList(newDataList)
   }
 
   const deleteComment = (
@@ -134,7 +134,7 @@ export const Board: React.FC = () => {
     cardId: number,
     commentId: number
   ) => {
-    let mapped: IColumn[] = columnsList.map((column: IColumn) => {
+    const newDataList: IColumn[] = dataList.map((column: IColumn) => {
       if (column.columnId === columnId && column.cards !== undefined) {
         let cardMap: ICard[] = column.cards?.map((card: ICard) => {
           if (card.id === cardId && card.comments !== undefined) {
@@ -152,33 +152,33 @@ export const Board: React.FC = () => {
       return column
     })
 
-    setColumnsList(mapped)
+    setDataList(newDataList)
   }
 
-  const handleSubmit = (name: string) => {
-    setMemberName(name)
+  const handleSubmitSetUserName = (name: string) => {
+    setUserName(name)
   }
 
   return (
     <StyledBoard>
-      <ColumnList>
-        {columnsList.map(({columnId, name, cards}) => (
+      <ColumnListWrapper>
+        {dataList.map(({columnId, name, cards}) => (
           <Column
             key={columnId}
             columnId={columnId}
             name={name}
             cards={cards}
-            memberName={memberName}
+            userName={userName}
             addCard={addCard}
             deleteCard={deleteCard}
-            changeDescriptionCard={changeDescriptionCard}
+            changeDescriptionCard={changeCardDescription}
             addComment={addComment}
             editComment={editComment}
             deleteComment={deleteComment}
           />
         ))}
-      </ColumnList>
-      <GreetingsModal onSubmit={handleSubmit} />
+      </ColumnListWrapper>
+      <GreetingsModal onSubmit={handleSubmitSetUserName} />
     </StyledBoard>
   );
 }
@@ -192,7 +192,7 @@ const StyledBoard = styled.div`
   overflow-x: hidden;
 `
 
-const ColumnList = styled.div`
+const ColumnListWrapper = styled.div`
   display: flex;
   overflow-x: auto;
   height: calc(100% - 20px);

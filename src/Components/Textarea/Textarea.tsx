@@ -14,7 +14,7 @@ export const Textarea: React.FC<Props> = ({placeholder, value, onChange, onKeyPr
   );
 }
 
-export const TextareaHead: React.FC<Props> = ({placeholder, value, onChange, onKeyPress, autoFocus, onFocus, someRef}) => {
+export const TextareaHead: React.FC<Props> = ({placeholder, value, onChange, onKeyPress, autoFocus, onFocus, thisRef}) => {
   return (
     <StyledTextareaHead
       placeholder={placeholder}
@@ -24,8 +24,8 @@ export const TextareaHead: React.FC<Props> = ({placeholder, value, onChange, onK
       autoFocus={autoFocus}
       onFocus={onFocus}
       ref={(el) => {
-        if (someRef) {
-          someRef.current = el
+        if (thisRef) {
+          thisRef.current = el
         }
       }}
     />
@@ -65,5 +65,5 @@ interface Props {
   onKeyPress?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void,
   autoFocus?: boolean,
   onFocus?: (e: React.FocusEvent<HTMLTextAreaElement>) => void,
-  someRef?: React.MutableRefObject<HTMLTextAreaElement | null>,
+  thisRef?: React.MutableRefObject<HTMLTextAreaElement | null>,
 }
