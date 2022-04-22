@@ -1,22 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const Textarea: React.FC<Props> = ({placeholder, value, onChange}) => {
+export const Textarea: React.FC<Props> = (props) => {
   return (
-    <StyledTextarea
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-    />
+    <StyledTextarea {...props} />
   );
 }
 
-export const TextareaHead: React.FC<Props> = ({placeholder, value, onChange}) => {
+export const TextareaHead: React.FC<Props> = (props) => {
   return (
     <StyledTextareaHead
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
+      ref={(el) => {
+        if (props.textareaRef) {
+          props.textareaRef.current = el
+        }
+      }}
+      {...props}
     />
   );
 }
@@ -48,7 +47,11 @@ const StyledTextareaHead = styled(StyledTextarea)`
 `
 
 interface Props {
-  placeholder?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  placeholder?: string,
+  value?: string,
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void,
+  onKeyPress?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void,
+  autoFocus?: boolean,
+  onFocus?: (e: React.FocusEvent<HTMLTextAreaElement>) => void,
+  textareaRef?: React.MutableRefObject<HTMLTextAreaElement | null>,
 }

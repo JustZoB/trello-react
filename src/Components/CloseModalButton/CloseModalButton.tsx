@@ -44,5 +44,5 @@ const StyledCloseModalButton = styled.div`
 `
 
 interface Props {
-  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void,
 }

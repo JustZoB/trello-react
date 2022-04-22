@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledCard = styled.div<CardProps>`
-  display: ${(props) => (props.$isActive ? 'flex' : 'none')};
+  display: flex;
   align-items: center;
   font-size: 14px;
   height: 14px;
@@ -17,11 +17,9 @@ export const StyledCard = styled.div<CardProps>`
 `
 
 StyledCard.defaultProps = {
-  $isActive: true,
   variant: 'primary'
 }
 
 interface CardProps {
-  $isActive?: boolean;
-  variant?: string;
+  variant?: string,
 }

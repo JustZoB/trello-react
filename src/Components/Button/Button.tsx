@@ -1,13 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const Button: React.FC<Props> = ({type, label}) => {
+export const Button: React.FC<Props> = ({label, size, type, onClick}) => {
   return (
-    <StyledButton type={type}>{label}</StyledButton>
+    <StyledButton
+      label={label}
+      type={type}
+      size={size}
+      onClick={onClick}
+    >
+      {label}
+    </StyledButton>
   );
 }
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<Props>`
   border-radius: 3px;
   background-color: #0079bf;
   color: white;
@@ -15,7 +22,7 @@ const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5px 10px;
+  padding: ${(props) => (props.size === 'small' ? '2px 5px;' : '5px 10px;')};
   cursor: pointer;
   margin-right: 5px;
   border: 0;
@@ -34,6 +41,8 @@ export const ButtonsWrapper = styled.div`
 `
 
 interface Props {
-  label: string;
-  type?: 'button' | 'submit' | 'reset' | undefined;
+  label: string,
+  size?: 'small' | 'big' | undefined,
+  type?: 'button' | 'submit' | 'reset' | undefined,
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void,
 }
